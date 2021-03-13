@@ -30,24 +30,12 @@
         let username = document.querySelector('#username'); 
         let password = document.querySelector('#password'); 
         
-        // console.log("CLICK")
-        // $.ajax(url, {
-        //     method: 'POST',
-        //     data: {"username": username, "password": password},
-        //     crossDomain: true,
-        //     success: "login_success",
-        //     error: "login_error"
-        // });
-        // console.log("CLICK...")
-        
         xhr.open("POST", url, true); // open a connection 
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.withCredentials=true;
         
         xhr.onreadystatechange = function () { // Create a state change callback 
             if (xhr.readyState === 4 && xhr.status === 200) { 
-                //xhr.getResponseHeader('bb-token');
-                //Document.cooki
                 result.innerHTML = this.responseText; // Print received data from server 
             } 
         }; 

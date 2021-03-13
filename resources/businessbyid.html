@@ -49,10 +49,22 @@
             
             function appendData(data) {
                 var mainContainer = document.getElementById("data");
-                var div = document.createElement("div");
+                var div0 = document.createElement("div");
+                var div1 = document.createElement("div");
+                var div2 = document.createElement("div");
+                var div3 = document.createElement("div");
+                var div4 = document.createElement("div");
+
+
+                div0.innerHTML = 
+                        'Name: ' + data.owner.firstName + ' ' + data.owner.lastName + "<br>" +
+                        'Business: ' + data.businessName + "<br>" +
+                        'Location: ' + data.location + "<br>" +
+                        'Type: ' + data.businessType + "<br><br>";
+
 
                 for(var i=0;i<data.reviews.length;i++) {
-                    div.innerHTML = 
+                    div1.innerHTML = 
                         'review ID: ' + data.reviews[i].id + "<br>" +
                         'rating: ' + data.reviews[i].rating + "<br>" +
                         'review: ' + data.reviews[i].review + "<br><br>";
@@ -60,42 +72,30 @@
                 };
 
                 for(var i=0;i<data.reviews.length;i++) {
-                    div.innerHTML = 
-                        'Name: ' + data.owner.firstName + ' ' + data.owner.lastName + "<br>" +
-                        'Business: ' + data.businessName + "<br>" +
-                         'Location: ' + data.location + "<br>" +
-                         'Type: ' + data.businessType + "<br><br>";
+                    div2.innerHTML = 
+                        'Hours ID: ' + data.hours[i].id + "<br>" +
+                        'Hours Day: ' + data.hours[i].day + "<br>" +
+                        'Hours Open: ' + data.hours[i].open + "<br>" +
+                        'Hours Closed: ' + data.hours[i].closed + "<br><br>";
                         
                 };
 
-                // div.innerHTML = 
-                //     'Name: ' + data.owner.firstName + ' ' + data.owner.lastName + "<br>" +
-                //     'Business: ' + data.businessName + "<br>" +
-                //     'Location: ' + data.location + "<br>" +
-                //     'Type: ' + data.businessType + "<br><br>" +
+                
+                for(var i=0;i<data.reviews.length;i++) {
+                    div3.innerHTML = 
+                        'Post ID: ' + data.posts[i].postId + "<br>" +
+                        'Post Type: ' + data.posts[i].postType + "<br>" +
+                        'Post Body: ' + data.posts[i].body + "<br>" +
+                        'Post Posted: ' + data.posts[i].createdTime + "<br><br>";
+                        
+                };
+
                     
-                    
-                //     'review ID: ' + data.reviews[0].id + "<br>" +
-                //     'rating: ' + data.reviews[0].rating + "<br>" +
-                //     'review: ' + data.reviews[0].review + "<br><br>" +
-
-                //     'Hours ID: ' + data.hours.id + "<br>" +
-                //     'Hours Day: ' + data.hours.day + "<br>" +
-                //     'Hours Open: ' + data.hours.open + "<br>" +
-                //     'Hours Closed: ' + data.hours.closed + "<br><br>" +
-
-                //     'Post ID: ' + data.posts.postId + "<br>" +
-                //     'Post Type: ' + data.posts.postType + "<br>" +
-                //     'Post Body: ' + data.posts.body + "<br>" +
-                //     'Post Posted: ' + data.posts.createdTime + "<br><br>" +
-
-
-                //     'Phone: ' + data.phoneNumber + "<br>" +
-                //     'Registration Date: ' + data.registerDatetime + "<br>" +
-                //     'Is Active: ' + data.active + "<br>" +
-                //     'Favorites: ' + data.favorites;
-                    
-                mainContainer.appendChild(div);
+                mainContainer.appendChild(div0);
+                mainContainer.appendChild(div1);
+                mainContainer.appendChild(div2);
+                mainContainer.appendChild(div3);
+                mainContainer.appendChild(div4);
                 
             }
     }
