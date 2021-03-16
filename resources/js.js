@@ -39,7 +39,8 @@ function initMap() {
     zoom: 15,
     mapTypeId: google.maps.MapTypeId.SATELLITE //roadmap - satellite - hybrid - terrain
   });
-  
+  geocoder = new google.maps.Geocoder();
+
   //create map control buttons
   createButtons(); 
   
@@ -216,18 +217,22 @@ function populateMap(businesses) {
   //need to get our business listings
   for (let business of businesses) {
       console.log(business.location);
-//        let address = business.location;
-//        let name = business.businessName;
-      let address = "1201 Broadway Ave S Ste 100, Rochester, MN 55904";
-      let name = "chickenfilet";
+      let address = business.location;
+      let name = business.businessName;
+      //let address = "1201 Broadway Ave S Ste 100, Rochester, MN 55904";
+      //let name = "chickenfilet";
       let businessStatus =
-      '<h1 id="firstHeading" class="firstHeading">BusinessName</h1>' +
+      '<h1 id="firstHeading" class="firstHeading" style="text-align:center">BusinessName</h1>' +
       '<div id="bodyContent">' +
-      "<p>content</p>" +
-      "</div>";
+      '<p style="text-align:left">content</p>' +
+      '</div>';
       businessStatus = businessStatus.replace("BusinessName", name);
-
-      businessStatus = businessStatus.replace("bodyContent", "somecontent");//business.posts[business.posts.length - 1]);
+      //console.log(...business.posts);
+      if (business.posts.length === 0) {
+        businessStatus = businessStatus.replace("content", "No status to display :)");
+      } else {
+        businessStatus = businessStatus.replace("content", business.posts[business.posts.length - 1].body);
+      }
 
       geocoder.geocode({ address: address }, (results, status) => {
           if (status === "OK") {
