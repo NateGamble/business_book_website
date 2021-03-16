@@ -16,6 +16,14 @@ $(document).ready(function () {
     $("#info-container").load("resources/users.html");
   });
 
+  $("#adminpage").click(function() {
+    $("#info-container").load("resources/adminpage.html");
+  });
+
+  $("#ownerpage").click(function() {
+    $("#info-container").load("resources/ownerpage.html");
+  });
+
   $("#businessbyidpage").click(function () {
     $("#info-container").load("resources/businessbyid.html");
   });
