@@ -224,6 +224,7 @@ function codeAddress(address) {
 }
 
 function populateMap(businesses) {
+  console.log(businesses);
   //need to get our business listings
   for (let business of businesses) {
       console.log(business.location);
@@ -267,24 +268,35 @@ function populateMap(businesses) {
 
 async function getBusinesses() {
   //GET BUSINESSES
-  let xhr = new XMLHttpRequest(); // Creating a XHR object
-  let url = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses";
 
-  xhr.open("GET", url, true); // open a connection
+  let myUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses";
 
-  // Set the request header i.e. which type of content you are sending
-  xhr.setRequestHeader("Content-Type", "application/json");
+  const https = require("https");
+  const agent = new https.Agent({
+    rejectUnauthorized: false
+  })
+  fetch(myUrl, { agent })
+  .then(populateMap(JSON.parse(this.responseText)));
 
-  xhr.onreadystatechange = function () { // Create a state change callback
-      if (xhr.readyState === 4 && xhr.status === 200) {
-          console.log(this.responseText); // Print received data from server
-          populateMap(JSON.parse(this.responseText));
-          //return this.responseText;
-          //alert("Got business data");
-      } else if (xhr.readyState === 4 && xhr.status >= 400) {
-        alert("Something went wrong while registering your account!");
-      }
-  };
-  // Sending data with the request
-  xhr.send(null);
+
+  // let xhr = new XMLHttpRequest(); // Creating a XHR object
+  
+
+  // xhr.open("GET", url, true); // open a connection
+
+  // // Set the request header i.e. which type of content you are sending
+  // xhr.setRequestHeader("Content-Type", "application/json");
+
+  // xhr.onreadystatechange = function () { // Create a state change callback
+  //     if (xhr.readyState === 4 && xhr.status === 200) {
+  //         console.log(this.responseText); // Print received data from server
+  //         populateMap(JSON.parse(this.responseText));
+  //         //return this.responseText;
+  //         //alert("Got business data");
+  //     } else if (xhr.readyState === 4 && xhr.status >= 400) {
+  //       alert("Something went wrong while registering your account!");
+  //     }
+  // };
+  // // Sending data with the request
+  // xhr.send(null);
 }
