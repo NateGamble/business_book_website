@@ -1,22 +1,23 @@
 function getAllUsers() {
-   fetch("http://localhost:5000/users")
+   fetch("http://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/users")
   .then(resp => {
         if (resp.status >= 400) {
             alert("Something went wrong while attempting to grab the users!");
-            return;
+            throw "some error happened";
         }
 
         return resp.json();
   })
   .then(users => {
        printAppUsers(users.filter(user => user.active));
-  });
+  })
+  .catch(error => console.log(error));
 }
 
 getAllUsers();
 
 function getAllBusinesses() {
-    fetch("http://localhost:5000/businesses")
+    fetch("http://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses")
     .then(resp => {
           if (resp.status >= 400) {
               alert("Something went wrong while attempting to grab the businesses!");
@@ -248,7 +249,7 @@ function showReviewsByBusiness(biz) {
 }
 
 function deleteBusiness(bizId) {
-    let deleteUrl = "http://localhost:5000/businesses/id/" + bizId;
+    let deleteUrl = "http://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses/id/" + bizId;
     console.log(deleteUrl);
     /*fetch(deleteUrl, {
         method: 'DELETE'
@@ -261,7 +262,7 @@ function deleteBusiness(bizId) {
 }
 
 function deleteUser(userId) {
-    let deleteUrl = "http://localhost:5000/users/id/" + userId;
+    let deleteUrl = "http://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/users/id/" + userId;
     console.log(deleteUrl);
     getAllUsers();
     /*fetch(deleteUrl, {
@@ -275,7 +276,7 @@ function deleteUser(userId) {
 }
 
 function deleteReview(reviewId) {
-    let deleteUrl = "http://localhost:5000/businesses/reviews/id/" + reviewId;
+    let deleteUrl = "http://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses/reviews/id/" + reviewId;
     console.log(deleteUrl);
 
     /*fetch(deleteUrl, {

@@ -1,7 +1,7 @@
 const OWNER_ID = 3; // using Alex's account as a test
 
 function getOwnerBusinesses() {
-    fetch("http://localhost:5000/businesses")
+    fetch("http://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses")
     .then(resp => {
           if (resp.status >= 400) {
               alert("Something went wrong while attempting to grab the businesses!");
@@ -110,6 +110,33 @@ function printBusinesses(businesses) {
     });
 
     businessdata.appendChild(table);
+}
+
+function saveBusiness() {
+    let newBizInputs = document.querySelectorAll('input[name="newBiz"]');
+    
+    let inputVals = Array.from(newBizInputs).map(biz => biz.value);
+
+    let newBiz = {};
+
+    newBiz.businessName = inputVals[0];
+    newBiz.businessType = inputVals[1];
+    newBiz.location = inputVals[2];
+    newBiz.email = inputVals[3];
+
+    console.log(newBiz);
+}
+
+function savePost() {
+    let newPostBody = document.querySelector('#postbody');
+    let newPostType = document.querySelector('#posttype');
+
+    let newPost = {};
+
+    newPost.body = newPostBody.value;
+    newPost.postType = newPostType.value;
+
+    console.log(newPost);
 }
 
 function updateBusiness(biz, name) {

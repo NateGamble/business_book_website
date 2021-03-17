@@ -31,3 +31,22 @@ table {
     border: 2px solid rgb(200, 200, 200);
     margin-top: 2%;
 }
+
+form {
+    margin: 1% 1.5%;
+    background-color: #334c34;
+    border: 2px solid black;
+    width: 50%;
+}
+
+form * {
+    margin: 1% 1.5%;
+}
+
+form button {
+    margin-left: 0;
+}
+
+label {
+    margin-left: 0;
+}

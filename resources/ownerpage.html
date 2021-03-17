@@ -1,4 +1,40 @@
 <h1>Owner Page</h1>
+<form>
+    <h2>Create Business</h2>
+    <div>
+        <label for ="bizName">Business Name</label>
+        <input type="text" id="bizName" name="newBiz">
+    </div>
+    <div>
+        <label for ="bizType">Business Type</label>
+        <input type="text" id="bizType" name="newBiz">
+    </div>
+    <div>
+        <label for ="bizLocation">Location</label>
+        <input type="text" id="bizLocation" name="newBiz">
+    </div>
+    <div>
+        <label for ="bizEmail">Email</label>
+        <input type="text" id="bizEmail" name="newBiz">
+    </div>
+    <div>
+        <button type="button" onclick="saveBusiness()">Save</button>
+    </div>    
+</form>
+<form>
+    <h2>Create Post</h2>
+    <div>
+        <label for ="postbody">Post Body</label>
+        <textarea id="postbody">Type post here</textarea>
+    </div>
+    <div>
+        <label for ="posttype">Post Type</label>
+        <input type="text" id="posttype">
+    </div>
+    <div>
+        <button type="button" onclick="savePost()">Save</button>
+    </div>    
+</form>
 <div id="businessdata"></div>
 <link rel="stylesheet" href="resources/styles/ownerstyles.css"/>
 <script src="resources/scripts/ownerscript.js"></script>
