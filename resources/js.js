@@ -266,7 +266,7 @@ function populateMap(businesses) {
 async function getBusinesses() {
   //GET BUSINESSES
   let xhr = new XMLHttpRequest(); // Creating a XHR object
-  let url = "https://businessbook-env-2.eba-yktr92qi.us-east-1.elasticbeanstalk.com/businesses";
+  let url = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com//businesses";
 
   xhr.open("GET", url, true); // open a connection
 
