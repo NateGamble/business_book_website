@@ -269,11 +269,7 @@ async function getBusinesses() {
 
   let myUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses";
 
-  const https = require("https");
-  const agent = new https.Agent({
-    rejectUnauthorized: false
-  })
-  fetch(myUrl, { agent })
+  fetch(myUrl)
   .then(populateMap(JSON.parse(this.responseText)));
 
 
