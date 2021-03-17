@@ -51,14 +51,14 @@ function initMap() {
 
   //create map control buttons
   createButtons(); 
-  
-  // centers map on the users location
-  centerMap(); 
 
   //Pulls businesses and then populates the map with them
   getBusinesses();
   //setTimeout(addNewMarker(), 1000);
   //populateMap();
+
+  // centers map on the users location
+  centerMap(); 
 }
 
 
@@ -75,7 +75,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 function createButtons() {
   createButtonCurrentLocation();
   addMarker();
-  addInfo();
+  //addInfo();
 }
 
 
@@ -109,27 +109,27 @@ function createButtonCurrentLocation() {
   });
 }
 
-function addInfo() {
-  const myLatlng = { lat: -25.363, lng: 131.044 };
-  let infoWindow = new google.maps.InfoWindow({
-    content: "Click the map to get Lat/Lng!",
-    position: myLatlng,
-  });
-  //infoWindow.open(map);
-  // Configure the click listener.
-  map.addListener("click", (mapsMouseEvent) => {
+// function addInfo() {
+//   const myLatlng = { lat: -25.363, lng: 131.044 };
+//   let infoWindow = new google.maps.InfoWindow({
+//     content: "Click the map to get Lat/Lng!",
+//     position: myLatlng,
+//   });
+//   //infoWindow.open(map);
+//   // Configure the click listener.
+//   map.addListener("click", (mapsMouseEvent) => {
 
-    infoWindow.close();// Close the current InfoWindow.
-    infoWindow = new google.maps.InfoWindow({// Create a new InfoWindow.
-      position: mapsMouseEvent.latLng,
-    });
-    infoWindow.setContent(
-      JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
-    );
-    infoWindow.open(map);
-  });
+//     infoWindow.close();// Close the current InfoWindow.
+//     infoWindow = new google.maps.InfoWindow({// Create a new InfoWindow.
+//       position: mapsMouseEvent.latLng,
+//     });
+//     infoWindow.setContent(
+//       JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+//     );
+//     infoWindow.open(map);
+//   });
 
-}
+// }
 
 function addMarker() {
 
@@ -245,7 +245,7 @@ function populateMap(businesses) {
 
       geocoder.geocode({ address: address }, (results, status) => {
           if (status === "OK") {
-              map.setCenter(results[0].geometry.location);
+              //map.setCenter(results[0].geometry.location);
               const infowindow = new google.maps.InfoWindow({
                   content: businessStatus
               });
@@ -256,20 +256,162 @@ function populateMap(businesses) {
               });
               marker.addListener("click", () => {
                   infowindow.open(map, marker);
+                  fillHomeInfo(business);
+                  let homeButton = document.querySelector("#homeoption");
+                  homeButton.addEventListener("click", () => {
+                    fillHomeInfo(business);
+                  })
+                  let postButton = document.querySelector("#postoption");
+                  postButton.addEventListener("click", () => {
+                    fillHomeWithPosts(business);
+                  })
+                  let reviewButton = document.querySelector("#reviewsoption");
+                  reviewButton.addEventListener("click", () => {
+                    fillHomeWithReviews(business);
+                  })
               });
           } else {
               alert("Geocode was not successful for the following reason: " + status);
           }
       });
   }
+  
 }
 
-function getBusinesses() {
+async function getBusinessInfo() {
   //GET BUSINESSES
 
-  let myUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses";
+  //let myUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses";
+  let myUrl = "http://localhost:5000/businesses";
+  await fetch(myUrl)
+  .then(response => response.json())
+  .then(data => populateMap(data));
+}
 
-  fetch(myUrl)
+function fillHomeWithPosts(business) {
+  let infoDiv = document.querySelector("#info-container");
+  infoDiv.innerHTML = "";
+  let postList = business.posts;
+
+  let displayTable = document.createElement("table");
+
+  let displayHeaderRow = document.createElement("tr");
+  let headerType = document.createElement("th");
+  let headerBody = document.createElement("th");
+  let headerTime = document.createElement("th");
+  headerType.textContent = "Category";
+  headerBody.textContent = "Post";
+  headerTime.textContent = "Time";
+  displayHeaderRow.appendChild(headerType);
+  displayHeaderRow.appendChild(headerBody);
+  displayHeaderRow.appendChild(headerTime);
+  displayTable.appendChild(displayHeaderRow);
+  infoDiv.appendChild(displayTable);
+
+  for (let post of postList) {
+    //looking at single post object now
+    console.log("displaying post");
+    console.log(post);
+
+    let postInfoRow = document.createElement("tr");
+    let typeCell = document.createElement("td");
+    typeCell.textContent = post.postType;
+    let postCell = document.createElement("td");
+    postCell.textContent = post.body;
+    let timeCell = document.createElement("td");
+    timeCell.textContent = post.createdTime;
+    postInfoRow.appendChild(typeCell);
+    postInfoRow.appendChild(postCell);
+    postInfoRow.appendChild(timeCell);
+    displayTable.appendChild(postInfoRow);
+  }
+
+}
+
+function fillHomeWithReviews(business) {
+  let infoDiv = document.querySelector("#info-container");
+  infoDiv.innerHTML = "";
+  let reviewList = business.reviews;
+
+  let displayTable = document.createElement("table");
+
+  let displayHeaderRow = document.createElement("tr");
+  let headerRating = document.createElement("th");
+  let headerReview = document.createElement("th");
+  headerRating.textContent = "Rating";
+  headerReview.textContent = "Review";
+  displayHeaderRow.appendChild(headerRating);
+  displayHeaderRow.appendChild(headerReview);
+  displayTable.appendChild(displayHeaderRow);
+  infoDiv.appendChild(displayTable);
+
+  for (let review of reviewList) {
+    //looking at single post object now
+    console.log("displaying review");
+    console.log(review);
+
+    let reviewInfoRow = document.createElement("tr");
+    let ratingCell = document.createElement("td");
+    ratingCell.textContent = review.rating;
+    let reviewCell = document.createElement("td");
+    reviewCell.textContent = review.review;
+    reviewInfoRow.appendChild(ratingCell);
+    reviewInfoRow.appendChild(reviewCell);
+    displayTable.appendChild(reviewInfoRow);
+  }
+}
+
+function fillHomeInfo(business) {
+  console.log("inside filling home");
+  let owner = business.owner;
+  let email = business.email;
+  let location = business.location;
+  let reviewList = business.reviews;
+  let hourList = business.hours;
+  //let postList = business.posts;
+  console.log(owner, email, location, hourList, reviewList);
+
+  let infoDiv = document.querySelector("#info-container");
+  infoDiv.innerHTML = "";
+
+  let displayTable = document.createElement("table");
+  let displayHeaderRow = document.createElement("tr");
+  let headerPhone = document.createElement("th");
+  let headerEmail = document.createElement("th");
+  let headerLocation = document.createElement("th");
+  //still need to make hours table
+
+  headerPhone.textContent = "Phone #";
+  headerEmail.textContent = "Email";
+  headerLocation.textContent = "Location";
+
+  displayHeaderRow.appendChild(headerPhone);
+  displayHeaderRow.appendChild(headerEmail);
+  displayHeaderRow.appendChild(headerLocation);
+  displayTable.appendChild(displayHeaderRow);
+  infoDiv.appendChild(displayTable);
+
+  let homeInfoRow = document.createElement("tr");
+  let phoneCell = document.createElement("td");
+  phoneCell.textContent = owner.phoneNumber;
+  let emailCell = document.createElement("td");
+  emailCell.textContent = email;
+  let locationCell = document.createElement("td");
+  locationCell.textContent = location;
+  homeInfoRow.appendChild(phoneCell);
+  homeInfoRow.appendChild(emailCell);
+  homeInfoRow.appendChild(locationCell);
+  displayTable.appendChild(homeInfoRow);
+
+}
+
+
+async function getBusinesses() {
+  //GET BUSINESSES
+
+  //let myUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses";
+  let myUrl = "http://localhost:5000/businesses";
+  await fetch(myUrl)
   .then(response => response.json())
   .then(data => populateMap(data));
 

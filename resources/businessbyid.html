@@ -15,7 +15,7 @@
 <div id="data"></div>
 
 <script>
-    let uri = 'http://localhost:5000/businesses/id/'+document.getElementById("business-id").value;
+    let bizUri = 'http://localhost:5000/businesses/id/'+document.getElementById("business-id").value;
     const initDetails = {
         method: 'get',
         credentials: 'include',
@@ -28,7 +28,7 @@
 
     function GetData() {
 
-        fetch( uri, initDetails )
+        fetch( bizUri, initDetails )
             .then( response =>{
                 if ( response.status !== 200 ) {
                     console.log( 'Status Code: ' + response.status );
