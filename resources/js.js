@@ -30,8 +30,6 @@ $(document).ready(function () {
 
 });
 
-process.argv.push("--ignore-ssl-errors=true");
-
 let geocoder;
 let map;
 
