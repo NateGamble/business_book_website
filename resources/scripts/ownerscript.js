@@ -148,6 +148,25 @@ function updateBusiness(biz, name) {
     biz.businessType = updateRow[3].value;
 
     console.log(biz);
+
+    fetch("https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses", {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(biz)
+    })
+    .then(resp => {
+        if (resp.status >= 400) {
+            alert("Something went wrong while updating your business!");
+        } else {
+            alert("Success!");
+        }
+    })
+    .catch(err => {
+        alert("Some error happened!"); 
+        console.log(err);
+    });
 }
 
 function resetBusiness(biz, name) {
