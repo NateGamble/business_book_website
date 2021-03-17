@@ -1,11 +1,7 @@
 const OWNER_ID = 3; // using Alex's account as a test
 
 function getOwnerBusinesses() {
-<<<<<<< HEAD
-    fetch("http://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses")
-=======
     fetch("https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses")
->>>>>>> cc518dfdebdcfbbcb953399c8a55a2d0048b42e0
     .then(resp => {
           if (resp.status >= 400) {
               alert("Something went wrong while attempting to grab the businesses!");

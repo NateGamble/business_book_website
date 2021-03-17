@@ -1,9 +1,5 @@
 function getAllUsers() {
-<<<<<<< HEAD
-   fetch("http://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/users")
-=======
    fetch("https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/users")
->>>>>>> cc518dfdebdcfbbcb953399c8a55a2d0048b42e0
   .then(resp => {
         if (resp.status >= 400) {
             alert("Something went wrong while attempting to grab the users!");
@@ -21,11 +17,7 @@ function getAllUsers() {
 getAllUsers();
 
 function getAllBusinesses() {
-<<<<<<< HEAD
-    fetch("http://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses")
-=======
     fetch("https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses")
->>>>>>> cc518dfdebdcfbbcb953399c8a55a2d0048b42e0
     .then(resp => {
           if (resp.status >= 400) {
               alert("Something went wrong while attempting to grab the businesses!");
