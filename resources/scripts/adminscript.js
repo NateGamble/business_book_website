@@ -1,9 +1,22 @@
 function getAllUsers() {
-   fetch("https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/users")
+    const initDetails = {
+        method: 'get',
+        credentials: 'include',
+        headers: {
+            "Content-Type": "application/json; charset=utf-8"
+        },
+        //withCredentials: true,
+        mode: "cors"
+    };
+
+   fetch("https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/users", initDetails)
   .then(resp => {
+        console.log(resp);
         if (resp.status >= 400) {
             alert("Something went wrong while attempting to grab the users!");
+            
             throw "some error happened";
+            
         }
 
         return resp.json();
