@@ -233,7 +233,7 @@ function populateMap(businesses) {
       let businessStatus =
       '<h1 id="firstHeading" class="firstHeading" style="text-align:center">BusinessName</h1>' +
       '<div id="bodyContent">' +
-      '<p style="text-align:left">content</p>' +
+      '<p style="text-align:left" class="businessPopup">content</p>' +
       '</div>';
       businessStatus = businessStatus.replace("BusinessName", name);
       //console.log(...business.posts);
@@ -412,51 +412,4 @@ async function getBusinesses() {
   .then(response => response.json())
   .then(data => populateMap(data));
 
-  // let myUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses";
-  // const initDetails = {
-  //   method: 'get',
-  //   headers: {
-  //       "Content-Type": "application/json; charset=utf-8"
-  //   },
-  //   mode: "cors"
-  // }
-  // fetch(myUrl, initDetails)
-  // .then(response => {
-  //   if (response.status !== 200) {
-  //       console.log('Status Code: ' + response.status);
-  //       return;
-  //   }
-  //   console.log(response.headers.get("Content-Type"));
-  //   return response.json();
-  // })
-  // .then(function (data) {
-
-  //   console.log(JSON.stringify(data));
-
-  //   appendData(data);
-  // })
-  // .catch(err => {
-  //     console.log('Fetch Error :-S', err);
-  // });
-
-  // let xhr = new XMLHttpRequest(); // Creating a XHR object
-  
-
-  // xhr.open("GET", url, true); // open a connection
-
-  // // Set the request header i.e. which type of content you are sending
-  // xhr.setRequestHeader("Content-Type", "application/json");
-
-  // xhr.onreadystatechange = function () { // Create a state change callback
-  //     if (xhr.readyState === 4 && xhr.status === 200) {
-  //         console.log(this.responseText); // Print received data from server
-  //         populateMap(JSON.parse(this.responseText));
-  //         //return this.responseText;
-  //         //alert("Got business data");
-  //     } else if (xhr.readyState === 4 && xhr.status >= 400) {
-  //       alert("Something went wrong while registering your account!");
-  //     }
-  // };
-  // // Sending data with the request
-  // xhr.send(null);
 }
