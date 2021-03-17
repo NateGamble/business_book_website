@@ -281,8 +281,8 @@ function populateMap(businesses) {
 async function getBusinessInfo() {
   //GET BUSINESSES
 
-  //let myUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses";
-  let myUrl = "http://localhost:5000/businesses";
+  let myUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses";
+  // let myUrl = "http://localhost:5000/businesses";
   await fetch(myUrl)
   .then(response => response.json())
   .then(data => populateMap(data));
@@ -409,8 +409,8 @@ function fillHomeInfo(business) {
 async function getBusinesses() {
   //GET BUSINESSES
 
-  //let myUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses";
-  let myUrl = "http://localhost:5000/businesses";
+  let myUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses";
+  // let myUrl = "http://localhost:5000/businesses";
   await fetch(myUrl)
   .then(response => response.json())
   .then(data => populateMap(data));
