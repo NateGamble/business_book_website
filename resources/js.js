@@ -414,35 +414,33 @@ async function getBusinesses() {
   await fetch(myUrl)
   .then(response => response.json())
   .then(data => populateMap(data));
-  let myUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses";
-  const initDetails = {
-    method: 'get',
-    headers: {
-        "Content-Type": "application/json; charset=utf-8"
-    },
-    mode: "cors"
-  }
-  fetch(myUrl, initDetails)
-  //.then(response => response.json())
-  //.then(data => populateMap(data));
 
-  .then(response => {
-    if (response.status !== 200) {
-        console.log('Status Code: ' + response.status);
-        return;
-    }
-    console.log(response.headers.get("Content-Type"));
-    return response.json();
-})
-.then(function (data) {
+  // let myUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses";
+  // const initDetails = {
+  //   method: 'get',
+  //   headers: {
+  //       "Content-Type": "application/json; charset=utf-8"
+  //   },
+  //   mode: "cors"
+  // }
+  // fetch(myUrl, initDetails)
+  // .then(response => {
+  //   if (response.status !== 200) {
+  //       console.log('Status Code: ' + response.status);
+  //       return;
+  //   }
+  //   console.log(response.headers.get("Content-Type"));
+  //   return response.json();
+  // })
+  // .then(function (data) {
 
-    console.log(JSON.stringify(data));
+  //   console.log(JSON.stringify(data));
 
-    appendData(data);
-})
-.catch(err => {
-    console.log('Fetch Error :-S', err);
-});
+  //   appendData(data);
+  // })
+  // .catch(err => {
+  //     console.log('Fetch Error :-S', err);
+  // });
 
   // let xhr = new XMLHttpRequest(); // Creating a XHR object
   
