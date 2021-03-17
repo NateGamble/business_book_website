@@ -270,7 +270,8 @@ async function getBusinesses() {
   let myUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses";
 
   fetch(myUrl)
-  .then(populateMap(JSON.parse(this.responseText)));
+  .then(response => response.json())
+  .then(data => populateMap(data));
 
 
   // let xhr = new XMLHttpRequest(); // Creating a XHR object
