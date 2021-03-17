@@ -1,5 +1,9 @@
 function getAllUsers() {
+<<<<<<< HEAD
    fetch("http://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/users")
+=======
+   fetch("https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/users")
+>>>>>>> cc518dfdebdcfbbcb953399c8a55a2d0048b42e0
   .then(resp => {
         if (resp.status >= 400) {
             alert("Something went wrong while attempting to grab the users!");
@@ -17,7 +21,11 @@ function getAllUsers() {
 getAllUsers();
 
 function getAllBusinesses() {
+<<<<<<< HEAD
     fetch("http://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses")
+=======
+    fetch("https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses")
+>>>>>>> cc518dfdebdcfbbcb953399c8a55a2d0048b42e0
     .then(resp => {
           if (resp.status >= 400) {
               alert("Something went wrong while attempting to grab the businesses!");
@@ -249,7 +257,11 @@ function showReviewsByBusiness(biz) {
 }
 
 function deleteBusiness(bizId) {
+<<<<<<< HEAD
     let deleteUrl = "http://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses/id/" + bizId;
+=======
+    let deleteUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses/id/" + bizId;
+>>>>>>> cc518dfdebdcfbbcb953399c8a55a2d0048b42e0
     console.log(deleteUrl);
     /*fetch(deleteUrl, {
         method: 'DELETE'
@@ -262,7 +274,11 @@ function deleteBusiness(bizId) {
 }
 
 function deleteUser(userId) {
+<<<<<<< HEAD
     let deleteUrl = "http://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/users/id/" + userId;
+=======
+    let deleteUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/users/id/" + userId;
+>>>>>>> cc518dfdebdcfbbcb953399c8a55a2d0048b42e0
     console.log(deleteUrl);
     getAllUsers();
     /*fetch(deleteUrl, {
@@ -276,7 +292,11 @@ function deleteUser(userId) {
 }
 
 function deleteReview(reviewId) {
+<<<<<<< HEAD
     let deleteUrl = "http://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses/reviews/id/" + reviewId;
+=======
+    let deleteUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses/reviews/id/" + reviewId;
+>>>>>>> cc518dfdebdcfbbcb953399c8a55a2d0048b42e0
     console.log(deleteUrl);
 
     /*fetch(deleteUrl, {
