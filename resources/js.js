@@ -264,7 +264,7 @@ function populateMap(businesses) {
   }
 }
 
-async function getBusinesses() {
+function getBusinesses() {
   //GET BUSINESSES
 
   let myUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses";
