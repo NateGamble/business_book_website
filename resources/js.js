@@ -450,23 +450,22 @@ function fillHomeInfo(business) {
 
   for (let day of hourList) {
     //looking at single post object now
-    console.log("displaying day");
-    console.log(day);
+    // console.log("displaying day");
+    // console.log(day);
 
     var closedDateParts = day.closed.split('T');
-    var closedDate = closedDateParts[0];
     var closedTime = closedDateParts[1];
     closedTime = closedTime.split('+')[0];
     closedTime = closedTime.substring(0,5);
-    console.log(closedDate);
-    console.log('closed time: ' + convert(closedTime));
+    // console.log(closedDate);
+    // console.log('closed time: ' + convert(closedTime));
   
     var openDateParts = day.open.split('T');
     var openTime = openDateParts[1];
     openTime = openTime.split('+')[0];
     openTime = openTime.substring(0,5);
-    console.log('open time: ' + convert(openTime));
-    console.log('day - ' + day.day);
+    // console.log('open time: ' + convert(openTime));
+    // console.log('day - ' + day.day);
     if (day.day == 1) {
       mondayCell.textContent = 'Opens- ' + convert(openTime) + ' Closes- ' + convert(closedTime);
     }
@@ -517,7 +516,7 @@ function fillHomeInfo(business) {
 }
 
 function isEmpty(node) {
-  console.log(node);
+  //console.log(node);
   if (node.innerHTML === "") {
     return node.textContent = "CLOSED";
   }
