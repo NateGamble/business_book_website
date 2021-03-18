@@ -273,7 +273,59 @@ function codeAddress(address) {
   });
 }
 
+
+
+function getImage(businessType){
+  switch(businessType) {
+    case 1:
+      image = {
+        url: "resources/images/burgerIcon.png",
+        size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
+        origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
+        anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
+      };
+      return image;
+    case 2:
+      image = {
+        url: "resources/images/burgerIconEx.png",
+        size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
+        origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
+        anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
+      };
+      return image;
+      case 3:
+        image = {
+          url: "resources/images/shirtIcon.png",
+          size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
+          origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
+          anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
+        };
+        return image;
+      case 4:
+        image = {
+          url: "resources/images/shirtIconEx.png",
+          size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
+          origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
+          anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
+        };
+        return image;
+
+    default:
+      break;
+      
+  } 
+
+  
+
+
+
+}
+
+
+
 function populateMap(businesses) {
+
+  
   //need to get our business listings
   for (let business of businesses) {
       console.log(business.location);
@@ -293,7 +345,12 @@ function populateMap(businesses) {
       } else {
         businessStatus = businessStatus.replace("content", business.posts[business.posts.length - 1].body);
       }
-
+      const shape = {// Shapes define the clickable region of the icon. The type defines an HTML
+        coords: [1, 1, 1, 20, 20, 20, 20, 1],//[top-left(x,y),top-right(x,y),bottom-right(x,y),bottom-left(x,y)]
+        type: "poly"
+      };
+    
+    
       geocoder.geocode({ address: address }, (results, status) => {
           if (status === "OK") {
               //map.setCenter(results[0].geometry.location);
@@ -303,6 +360,8 @@ function populateMap(businesses) {
               let marker = new google.maps.Marker({
                   title: name,
                   map: map,
+                  icon:getImage(1),
+                  shape:shape,
                   position: results[0].geometry.location
               });
               marker.addListener("click", () => {
