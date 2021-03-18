@@ -95,7 +95,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 function createButtons() {
   createButtonCurrentLocation();
-  addMarker();
+  //addMarker();
   //addInfo();
 }
 
@@ -133,88 +133,88 @@ function createButtonCurrentLocation() {
 }
 
 
-// function addInfo() {
-//   const myLatlng = { lat: -25.363, lng: 131.044 };
-//   let infoWindow = new google.maps.InfoWindow({
-//     content: "Click the map to get Lat/Lng!",
-//     position: myLatlng,
-//   });
-//   //infoWindow.open(map);
-//   // Configure the click listener.
-//   map.addListener("click", (mapsMouseEvent) => {
+// // function addInfo() {
+// //   const myLatlng = { lat: -25.363, lng: 131.044 };
+// //   let infoWindow = new google.maps.InfoWindow({
+// //     content: "Click the map to get Lat/Lng!",
+// //     position: myLatlng,
+// //   });
+// //   //infoWindow.open(map);
+// //   // Configure the click listener.
+// //   map.addListener("click", (mapsMouseEvent) => {
 
-//     infoWindow.close();// Close the current InfoWindow.
-//     infoWindow = new google.maps.InfoWindow({// Create a new InfoWindow.
-//       position: mapsMouseEvent.latLng,
+// //     infoWindow.close();// Close the current InfoWindow.
+// //     infoWindow = new google.maps.InfoWindow({// Create a new InfoWindow.
+// //       position: mapsMouseEvent.latLng,
+// //     });
+// //     infoWindow.setContent(
+// //       JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+// //     );
+// //     infoWindow.open(map);
+// //   });
+
+// // }
+
+// function addMarker() {
+
+
+
+//   const image10 = {
+//     url: "resources/images/burgerIcon.png",
+//     size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
+//     origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
+//     anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
+//   };
+//   const image11 = {
+//     url: "resources/images/burgerIconEx.png",
+//     size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
+//     origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
+//     anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
+//   };
+
+//   const image20 = {
+
+//     url: "resources/images/shirtIcon.png",
+//     size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
+//     origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
+//     anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
+//   };
+//   const image21 = {
+//     url: "resources/images/shirtIcon.png",
+//     size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
+//     origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
+//     anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
+//   };
+
+
+
+
+//   const business = [
+//     ["Willie's House of Debauchery", 43.455678, -88.84455373, 1, image10],
+//     ["Piggly Wiggly", 43.4542445738, -88.83662373, 1, image10],
+//     ["Drowned Rat: Pest Control", 43.459878, -88.8485085373, 1, image10],
+//     ["Daily Thrift", 43.4578, -88.83, 2, image10],
+//     ["Berries Baked Goods", 43.458, -88.8373, 1, image10]
+//   ];
+
+
+
+//   const shape = {// Shapes define the clickable region of the icon. The type defines an HTML
+//     coords: [1, 1, 1, 20, 20, 20, 20, 1],//[top-left(x,y),top-right(x,y),bottom-right(x,y),bottom-left(x,y)]
+//     type: "poly"
+//   };
+
+//   for (let i = 0; i < business.length; i++) {
+//     new google.maps.Marker({
+//       position: { lat: business[i][1], lng: business[i][2] },
+//       map,
+//       icon: business[i][4],
+//       shape: shape,
+//       title: business[i][0],
+//       zIndex: business[i][3]
 //     });
-//     infoWindow.setContent(
-//       JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
-//     );
-//     infoWindow.open(map);
-//   });
-
+//   }
 // }
-
-function addMarker() {
-
-
-
-  const image10 = {
-    url: "resources/images/burgerIcon.png",
-    size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
-    origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
-    anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
-  };
-  const image11 = {
-    url: "resources/images/burgerIconEx.png",
-    size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
-    origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
-    anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
-  };
-
-  const image20 = {
-
-    url: "resources/images/shirtIcon.png",
-    size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
-    origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
-    anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
-  };
-  const image21 = {
-    url: "resources/images/shirtIcon.png",
-    size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
-    origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
-    anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
-  };
-
-
-
-
-  const business = [
-    ["Willie's House of Debauchery", 43.455678, -88.84455373, 1, image10],
-    ["Piggly Wiggly", 43.4542445738, -88.83662373, 1, image10],
-    ["Drowned Rat: Pest Control", 43.459878, -88.8485085373, 1, image10],
-    ["Daily Thrift", 43.4578, -88.83, 2, image10],
-    ["Berries Baked Goods", 43.458, -88.8373, 1, image10]
-  ];
-
-
-
-  const shape = {// Shapes define the clickable region of the icon. The type defines an HTML
-    coords: [1, 1, 1, 20, 20, 20, 20, 1],//[top-left(x,y),top-right(x,y),bottom-right(x,y),bottom-left(x,y)]
-    type: "poly"
-  };
-
-  for (let i = 0; i < business.length; i++) {
-    new google.maps.Marker({
-      position: { lat: business[i][1], lng: business[i][2] },
-      map,
-      icon: business[i][4],
-      shape: shape,
-      title: business[i][0],
-      zIndex: business[i][3]
-    });
-  }
-}
 
 function moveMarker(map, marker) {
 
@@ -273,22 +273,19 @@ const personshape = {// Shapes define the clickable region of the icon. The type
     }
 }
 
-//takes in string address and returns lat/long mapsapi location object
-function codeAddress(address) {
-  geocoder.geocode( { 'address': address}, function(results, status) {
-    if (status == 'OK') {
-      return results[0].geometry.location;
-    } else {
-      alert('Geocode was not successful for the following reason: ' + status);
-    }
-  });
-}
-
-
 
 function getImage(businessType){
   switch(businessType) {
-    case 1:
+    case "library":
+      image = {
+        url: "resources/images/bookIcon.png",
+        size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
+        origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
+        anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
+      };
+      return image;
+    case "restaurant":
+      console.log("in restraunt")
       image = {
         url: "resources/images/burgerIcon.png",
         size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
@@ -296,32 +293,31 @@ function getImage(businessType){
         anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
       };
       return image;
-    case 2:
-      image = {
-        url: "resources/images/burgerIconEx.png",
-        size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
-        origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
-        anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
-      };
-      return image;
-      case 3:
+      case "bar":
+        console.log("in bar")
         image = {
-          url: "resources/images/shirtIcon.png",
+          url: "resources/images/beerIcon.png",
           size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
           origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
           anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
         };
         return image;
-      case 4:
+      case "grocery":
         image = {
-          url: "resources/images/shirtIconEx.png",
+          url: "resources/images/cartIcon.png",
           size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
           origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
           anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
         };
         return image;
-
     default:
+      console.log("default case" + businessType)
+      // image = {
+      //   url: "resources/images/shirtIconEx.png",
+      //   size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
+      //   origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
+      //   anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
+      // };
       break;
       
   } 
@@ -335,11 +331,11 @@ function getImage(businessType){
 
 
 function populateMap(businesses) {
-
+  var count = 0;
   
   //need to get our business listings
   for (let business of businesses) {
-      console.log(business.location);
+      //console.log(business.location);
       let address = business.location;
       let name = business.businessName;
       //let address = "1201 Broadway Ave S Ste 100, Rochester, MN 55904";
@@ -350,7 +346,8 @@ function populateMap(businesses) {
       '<p style="text-align:left" class="businessPopup">content</p>' +
       '</div>';
       businessStatus = businessStatus.replace("BusinessName", name);
-      //console.log(...business.posts);
+      console.log(business.businessType);
+      //console.log(business);
       if (business.posts.length === 0) {
         businessStatus = businessStatus.replace("content", "No status to display :)");
       } else {
@@ -363,6 +360,7 @@ function populateMap(businesses) {
     
     
       geocoder.geocode({ address: address }, (results, status) => {
+          
           if (status === "OK") {
               //map.setCenter(results[0].geometry.location);
               const infowindow = new google.maps.InfoWindow({
@@ -376,7 +374,7 @@ function populateMap(businesses) {
               let marker = new google.maps.Marker({
                   title: name,
                   map: map,
-                  icon:getImage(1),
+                  icon:getImage(business.businessType),
                   shape:shape,
                   position: results[0].geometry.location
               });
@@ -399,8 +397,17 @@ function populateMap(businesses) {
                     fillHomeWithReviews(business);
                   });
               });
+              count++;
+              if (count >= 10) {
+                console.log("delaying");
+                setTimeout(1000);
+                count = 0;
+              }
           } else {
-              alert("Geocode was not successful for the following reason: " + status);
+              if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+                  setTimeout(50)
+              }   
+              //alert("Geocode was not successful for the following reason: " + status);
           }
       });
   }
@@ -466,8 +473,8 @@ function fillHomeWithPosts(business) {
 
   for (let post of postList) {
     //looking at single post object now
-    console.log("displaying post");
-    console.log(post);
+    //console.log("displaying post");
+    //console.log(post);
 
     let postInfoRow = document.createElement("tr");
     let typeCell = document.createElement("td");
@@ -525,7 +532,7 @@ function fillHomeInfo(business) {
   let reviewList = business.reviews;
   let hourList = business.hours;
   //let postList = business.posts;
-  console.log(owner, email, location, hourList, reviewList);
+  //console.log(owner, email, location, hourList, reviewList);
 
   let infoDiv = document.querySelector("#info-container");
   infoDiv.innerHTML = "";
