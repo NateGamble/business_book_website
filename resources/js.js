@@ -233,7 +233,7 @@ function populateMap(businesses) {
       let businessStatus =
       '<h1 id="firstHeading" class="firstHeading" style="text-align:center">BusinessName</h1>' +
       '<div id="bodyContent">' +
-      '<p style="text-align:left">content</p>' +
+      '<p style="text-align:left" class="businessPopup">content</p>' +
       '</div>';
       businessStatus = businessStatus.replace("BusinessName", name);
       //console.log(...business.posts);

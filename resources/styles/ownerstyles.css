@@ -50,3 +50,7 @@ form button {
 label {
     margin-left: 0;
 }
+
+#bizDropdownSpan, select {
+    margin-left: 0;
+}
