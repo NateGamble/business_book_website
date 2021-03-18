@@ -401,8 +401,79 @@ function fillHomeInfo(business) {
   homeInfoRow.appendChild(locationCell);
   displayTable.appendChild(homeInfoRow);
 
+  //GENERATING HOURS TABLE
+
+  let hoursTable = document.createElement("table");
+
+  let hoursHeaderRow = document.createElement("tr");
+  let beginEndHeader = document.createElement("th");
+  let mondayHeader = document.createElement("th");
+  let tuesdayHeader = document.createElement("th");
+  let wednesdayHeader = document.createElement("th");
+  let thursdayHeader = document.createElement("th");
+  let fridayHeader = document.createElement("th");
+  let saturdayHeader = document.createElement("th");
+  let sundayHeader = document.createElement("th");
+
+  mondayHeader.textContent = "Monday";
+  tuesdayHeader.textContent = "Tuesday";
+  wednesdayHeader.textContent = "Wednesday";
+  thursdayHeader.textContent = "Thursday";
+  fridayHeader.textContent = "Friday";
+  saturdayHeader.textContent = "Saturday";
+  sundayHeader.textContent = "Sunday";
+  
+  hoursHeaderRow.appendChild(beginEndHeader);
+  hoursHeaderRow.appendChild(mondayHeader);
+  hoursHeaderRow.appendChild(tuesdayHeader);
+  hoursHeaderRow.appendChild(wednesdayHeader);
+  hoursHeaderRow.appendChild(thursdayHeader);
+  hoursHeaderRow.appendChild(fridayHeader);
+  hoursHeaderRow.appendChild(saturdayHeader);
+  hoursHeaderRow.appendChild(sundayHeader);
+  //we have row set up like |  |monday|tuesday|wednesday...
+
+
+  hoursTable.appendChild(hoursHeaderRow);
+  infoDiv.appendChild(hoursTable);
+
+  for (let day of hourList) {
+    //looking at single post object now
+    console.log("displaying day");
+    console.log(day);
+
+    var closedDateParts = day.closed.split('T');
+    var closedDate = closedDateParts[0];
+    var closedTime = closedDateParts[1];
+    closedTime = closedTime.split('+')[0];
+    closedTime = closedTime.substring(0,5);
+    console.log(closedDate);
+    console.log(convert(closedTime));
+  
+    // let reviewInfoRow = document.createElement("tr");
+    // let ratingCell = document.createElement("td");
+    // ratingCell.textContent = review.rating;
+    // let reviewCell = document.createElement("td");
+    // reviewCell.textContent = review.review;
+    // reviewInfoRow.appendChild(ratingCell);
+    // reviewInfoRow.appendChild(reviewCell);
+    // displayTable.appendChild(reviewInfoRow);
+  }
+
 }
 
+function convert(input) {
+  return moment(input, 'HH:mm').format('h:mm A');
+}
+
+
+// getDateTime(returnDate) {
+//   var dateParts = returnDate.split('T');
+//   var date = dateParts[0];
+//   var time = dateParts[1];
+//   time = time.split('+')[0];
+
+// }
 
 async function getBusinesses() {
   //GET BUSINESSES
@@ -415,6 +486,7 @@ async function getBusinesses() {
   // let myUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses";
   // const initDetails = {
   //   method: 'get',
+  //   credentials: 'include',
   //   headers: {
   //       "Content-Type": "application/json; charset=utf-8"
   //   },
