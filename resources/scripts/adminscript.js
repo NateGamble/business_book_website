@@ -1,4 +1,20 @@
 function getAllUsers() {
+    let usrp = localStorage.getItem("usrp");
+
+    if (!usrp) {
+        alert("You are not logged it. Log in as an ADMIN to see this page.");
+        $("#info-container").load("resources/home.html");
+        return;
+    }
+
+    usrp = JSON.parse(usrp);
+
+    if (usrp.role !== "ADMIN") {
+        alert("You are not authorized to view this page");
+        $("#info-container").load("resources/home.html");
+        return;
+    }
+
     const initDetails = {
         method: 'get',
         credentials: 'include',
@@ -57,6 +73,11 @@ function usersClosure(usersParam) {
 function printAppUsers(users) {
     console.log(users);
     let userdata = document.querySelector("#userdata");
+
+    while (userdata.firstChild) { 
+        userdata.removeChild(userdata.firstChild); 
+    }
+
     let table = document.createElement("table");
     let tableHeaderRow = document.createElement("tr");
 
@@ -247,7 +268,7 @@ function showReviewsByBusiness(biz) {
 
         let deleteCell = document.createElement("td");
         let deleteBtn = document.createElement("button");
-        deleteBtn.addEventListener("click", () => deleteReview(review.id));
+        deleteBtn.addEventListener("click", () => deleteReview(review.id, biz.owner.id));
         deleteBtn.textContent = "Delete";
         deleteCell.appendChild(deleteBtn);
 
@@ -277,28 +298,34 @@ function deleteBusiness(bizId) {
 function deleteUser(userId) {
     let deleteUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/users/id/" + userId;
     console.log(deleteUrl);
-    getAllUsers();
-    /*fetch(deleteUrl, {
+    
+    fetch(deleteUrl, {
         method: 'DELETE'
     })
     .then(res => {
         if (res.status < 400) {
+            alert("User deleted");
             getAllUsers();
+        } else {
+            alert("User couldn't be deleted due to an error.");
         }
-    });*/
+    });
 }
 
 function deleteReview(reviewId) {
-    let deleteUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses/reviews/id/" + reviewId;
+    let deleteUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses/reviews/" + reviewId;
     console.log(deleteUrl);
 
-    /*fetch(deleteUrl, {
+    fetch(deleteUrl, {
         method: 'DELETE'
     })
     .then(res => {
         if (res.status < 400) {
+            alert("Review deleted");
             getAllBusinesses();
+        } else {
+            alert("Review couldn't be deleted");
         }
-    });*/
+    });
 }
 

@@ -28,6 +28,16 @@ $(document).ready(function () {
     $("#info-container").load("resources/businessbyid.html");
   });
 
+  $("#logout").click(function() {
+    if (!localStorage.getItem("usrp")) {
+      alert("You are not logged in");
+    } else {
+      localStorage.removeItem("usrp");
+      alert("You have been logged off");
+      $("#info-container").load("resources/home.html");
+    }
+});
+
 });
 
 let geocoder;
@@ -80,6 +90,7 @@ function createButtons() {
 
 
 function createButtonCurrentLocation() {
+
   let iw_currentLocation = new google.maps.InfoWindow();
   const locationButton = document.getElementById("btn-current-location");
   locationButton.textContent = "Pan to Current Location";
@@ -97,6 +108,7 @@ function createButtonCurrentLocation() {
           iw_currentLocation.setContent("You Are Here.");
           iw_currentLocation.open(map);
           map.setCenter(pos);
+          //createLocationMarker(position.coords.latitude, position.coords.longitude,);
         },
         () => {
           handleLocationError(true, iw_currentLocation, map.getCenter());
@@ -108,6 +120,7 @@ function createButtonCurrentLocation() {
     }
   });
 }
+
 
 // function addInfo() {
 //   const myLatlng = { lat: -25.363, lng: 131.044 };
@@ -133,28 +146,47 @@ function createButtonCurrentLocation() {
 
 function addMarker() {
 
-  const image1 = {
-    //url:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
-    url: "resources/images/shirtIcon.png",
-    size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
-    origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
-    anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
-  };
-  const image0 = {
-    //url:"https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+
+
+  const image10 = {
     url: "resources/images/burgerIcon.png",
     size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
     origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
     anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
   };
+  const image11 = {
+    url: "resources/images/burgerIconEx.png",
+    size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
+    origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
+    anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
+  };
+
+  const image20 = {
+
+    url: "resources/images/shirtIcon.png",
+    size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
+    origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
+    anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
+  };
+  const image21 = {
+    url: "resources/images/shirtIcon.png",
+    size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
+    origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
+    anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
+  };
+
+
+
 
   const business = [
-    ["Willie's House of Debauchery", 43.455678, -88.84455373, 1, image0],
-    ["Piggly Wiggly", 43.4542445738, -88.83662373, 1, image0],
-    ["Drowned Rat: Pest Control", 43.459878, -88.8485085373, 1, image1],
-    ["Daily Thrift", 43.4578, -88.83, 2, image1],
-    ["Berries Baked Goods", 43.458, -88.8373, 1, image0]
+    ["Willie's House of Debauchery", 43.455678, -88.84455373, 1, image10],
+    ["Piggly Wiggly", 43.4542445738, -88.83662373, 1, image10],
+    ["Drowned Rat: Pest Control", 43.459878, -88.8485085373, 1, image10],
+    ["Daily Thrift", 43.4578, -88.83, 2, image10],
+    ["Berries Baked Goods", 43.458, -88.8373, 1, image10]
   ];
+
+
 
   const shape = {// Shapes define the clickable region of the icon. The type defines an HTML
     coords: [1, 1, 1, 20, 20, 20, 20, 1],//[top-left(x,y),top-right(x,y),bottom-right(x,y),bottom-left(x,y)]
@@ -186,7 +218,19 @@ function moveMarker(map, marker) {
 };
 
 function centerMap(){
-	let iw_currentLocation = new google.maps.InfoWindow();
+  
+const personimage = {
+  url: "resources/images/personicon.png",
+  size: new google.maps.Size(30, 50),// This marker is 20 pixels wide by 20 pixels high.
+  origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
+  anchor: new google.maps.Point(0, 50)// The anchor for this image is the base.
+};
+
+const personshape = {// Shapes define the clickable region of the icon. The type defines an HTML
+  coords: [1, 1, 1, 30, 30, 50, 50, 1],//[top-left(x,y),top-right(x,y),bottom-right(x,y),bottom-left(x,y)]
+  type: "poly"
+};
+	//let iw_currentLocation = new google.maps.InfoWindow();
 	// Try HTML5 geolocation.
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(
@@ -195,10 +239,18 @@ function centerMap(){
 					lat: position.coords.latitude,
 					lng: position.coords.longitude,
 				};
-				iw_currentLocation.setPosition(pos);
-				iw_currentLocation.setContent("You Are Here.");
-				iw_currentLocation.open(map);
+				//iw_currentLocation.setPosition(pos);
+				//iw_currentLocation.setContent("You Are Here.");
+				//iw_currentLocation.open(map);
 				map.setCenter(pos);
+        new google.maps.Marker({
+          position: pos,
+          map,
+          icon: personimage,
+          shape: personshape,
+          title: "You Are Here :)",
+          zIndex: 1
+        });
         },
         () => {
           handleLocationError(true, iw_currentLocation, map.getCenter());
@@ -222,7 +274,6 @@ function codeAddress(address) {
 }
 
 function populateMap(businesses) {
-  console.log(businesses);
   //need to get our business listings
   for (let business of businesses) {
       console.log(business.location);
@@ -275,7 +326,6 @@ function populateMap(businesses) {
           }
       });
   }
-  
 }
 
 async function getBusinessInfo() {
@@ -401,15 +451,151 @@ function fillHomeInfo(business) {
   homeInfoRow.appendChild(locationCell);
   displayTable.appendChild(homeInfoRow);
 
+  //GENERATING HOURS TABLE
+
+  let hoursTable = document.createElement("table");
+
+  let hoursHeaderRow = document.createElement("tr");
+  let beginEndHeader = document.createElement("th");
+  let mondayHeader = document.createElement("th");
+  let tuesdayHeader = document.createElement("th");
+  let wednesdayHeader = document.createElement("th");
+  let thursdayHeader = document.createElement("th");
+  let fridayHeader = document.createElement("th");
+  let saturdayHeader = document.createElement("th");
+  let sundayHeader = document.createElement("th");
+
+  mondayHeader.textContent = "Monday";
+  tuesdayHeader.textContent = "Tuesday";
+  wednesdayHeader.textContent = "Wednesday";
+  thursdayHeader.textContent = "Thursday";
+  fridayHeader.textContent = "Friday";
+  saturdayHeader.textContent = "Saturday";
+  sundayHeader.textContent = "Sunday";
+
+  //hoursHeaderRow.appendChild(beginEndHeader);
+  hoursHeaderRow.appendChild(mondayHeader);
+  hoursHeaderRow.appendChild(tuesdayHeader);
+  hoursHeaderRow.appendChild(wednesdayHeader);
+  hoursHeaderRow.appendChild(thursdayHeader);
+  hoursHeaderRow.appendChild(fridayHeader);
+  hoursHeaderRow.appendChild(saturdayHeader);
+  hoursHeaderRow.appendChild(sundayHeader);
+  //we have row set up like |  |monday|tuesday|wednesday...
+
+
+  hoursTable.appendChild(hoursHeaderRow);
+  infoDiv.appendChild(hoursTable);
+
+
+  let hoursDataRow = document.createElement("tr");
+
+  let mondayCell = document.createElement("td");
+  let tuesdayCell = document.createElement("td");
+  let wednesdayCell = document.createElement("td");
+  let thursdayCell = document.createElement("td");
+  let fridayCell = document.createElement("td");
+  let saturdayCell = document.createElement("td");
+  let sundayCell = document.createElement("td");
+
+  for (let day of hourList) {
+    //looking at single post object now
+    // console.log("displaying day");
+    // console.log(day);
+
+    var closedDateParts = day.closed.split('T');
+    var closedTime = closedDateParts[1];
+    closedTime = closedTime.split('+')[0];
+    closedTime = closedTime.substring(0,5);
+    // console.log(closedDate);
+    // console.log('closed time: ' + convert(closedTime));
+
+    var openDateParts = day.open.split('T');
+    var openTime = openDateParts[1];
+    openTime = openTime.split('+')[0];
+    openTime = openTime.substring(0,5);
+    // console.log('open time: ' + convert(openTime));
+    // console.log('day - ' + day.day);
+    if (day.day == 1) {
+      mondayCell.textContent = 'Hours: ' + convert(openTime) + ' - ' + convert(closedTime);
+    }
+    if (day.day == 2) {
+      tuesdayCell.textContent = 'Hours: ' + convert(openTime) + ' - ' + convert(closedTime);
+    }
+    if (day.day == 3) {
+      wednesdayCell.textContent = 'Hours: ' + convert(openTime) + ' - ' + convert(closedTime);
+    }
+    if (day.day == 4) {
+      thursdayCell.textContent = 'Hours: ' + convert(openTime) + ' - ' + convert(closedTime);
+    }
+    if (day.day == 5) {
+      fridayCell.textContent = 'Hours: ' + convert(openTime) + ' - ' + convert(closedTime);
+    }
+    if (day.day == 6) {
+      saturdayCell.textContent = 'Hours: ' + convert(openTime) + ' - ' + convert(closedTime);
+    }
+    if (day.day == 7) {
+      sundayCell.textContent = 'Hours: ' + convert(openTime) + ' - ' + convert(closedTime);
+    }
+
+  }
+  isEmpty(mondayCell);
+  isEmpty(tuesdayCell);
+  isEmpty(wednesdayCell);
+  isEmpty(thursdayCell);
+  isEmpty(fridayCell);
+  isEmpty(saturdayCell);
+  isEmpty(sundayCell);
+  hoursDataRow.appendChild(mondayCell);
+  hoursDataRow.appendChild(tuesdayCell);
+  hoursDataRow.appendChild(wednesdayCell);
+  hoursDataRow.appendChild(thursdayCell);
+  hoursDataRow.appendChild(fridayCell);
+  hoursDataRow.appendChild(saturdayCell);
+  hoursDataRow.appendChild(sundayCell);
+  hoursTable.appendChild(hoursDataRow);
+
+}
+
+function isEmpty(node) {
+  //console.log(node);
+  if (node.innerHTML === "") {
+    return node.textContent = "CLOSED";
+  }
+
+}
+
+
+function convert(input) {
+  return moment(input, 'HH:mm').format('h:mm A');
 }
 
 
 async function getBusinesses() {
-  //GET BUSINESSES
-
+ // let myUrl = "http://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com//businesses";
   let myUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses";
   await fetch(myUrl)
   .then(response => response.json())
   .then(data => populateMap(data));
+  // //GET BUSINESSES
+  // let xhr = new XMLHttpRequest(); // Creating a XHR object
+  // let url = "http://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com//businesses";
 
+  // xhr.open("GET", url, true); // open a connection
+
+  // // Set the request header i.e. which type of content you are sending
+  // xhr.setRequestHeader("Content-Type", "application/json");
+
+  // xhr.onreadystatechange = function () { // Create a state change callback
+  //     if (xhr.readyState === 4 && xhr.status === 200) {
+  //         console.log(this.responseText); // Print received data from server
+  //         populateMap(JSON.parse(this.responseText));
+  //         //return this.responseText;
+  //         //alert("Got business data");
+  //     } else if (xhr.readyState === 4 && xhr.status >= 400) {
+  //       alert("Something went wrong getting businesses!");
+  //     }
+  // };
+  // // Sending data with the request
+  // xhr.send(null);
 }
