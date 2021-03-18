@@ -151,7 +151,10 @@ function saveBusiness() {
     newBiz.registerDatetime = null;
     newBiz.id = null;
     newBiz.reviews = [];
-    newBiz.owner = null;
+    newBiz.owner = {};
+
+    let usrp = JSON.parse(localStorage.getItem("usrp"));
+    newBiz.owner.username = usrp.username;
 
     console.log(newBiz);
 
@@ -190,6 +193,25 @@ function savePost() {
 
     console.log(newPost);
     console.log(postUrl);
+
+    fetch(postUrl, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newPost)
+    })
+    .then(resp => {
+        if (resp.status >= 400) {
+            alert("Something went wrong while adding your post!");
+        } else {
+            alert("Success!");
+        }
+    })
+    .catch(err => {
+        alert("Some error happened!"); 
+        console.log(err);
+    });
 }
 
 function updateBusiness(biz, name) {
