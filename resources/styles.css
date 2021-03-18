@@ -127,8 +127,7 @@ p {
 	background-color:green;
 	height:15%;
 	width: 100%;
-    color: black;
-    border:solid;
+    outline: 3px solid black;
 }
 
 .business-exploration-options{
