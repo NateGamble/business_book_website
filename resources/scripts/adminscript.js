@@ -1,4 +1,20 @@
 function getAllUsers() {
+    let usrp = localStorage.getItem("usrp");
+
+    if (!usrp) {
+        alert("You are not logged it. Log in as an ADMIN to see this page.");
+        $("#info-container").load("resources/home.html");
+        return;
+    }
+
+    usrp = JSON.parse(usrp);
+
+    if (usrp.role !== "ADMIN") {
+        alert("You are not authorized to view this page");
+        $("#info-container").load("resources/home.html");
+        return;
+    }
+
     const initDetails = {
         method: 'get',
         credentials: 'include',

@@ -1,4 +1,22 @@
 function getOwnerBusinesses() {
+    let usrp = localStorage.getItem("usrp");
+
+    if (!usrp) {
+        alert("You are not logged it. Log in as an ADMIN or OWNER to see this page.");
+        $("#info-container").load("resources/home.html");
+        return;
+    }
+
+    usrp = JSON.parse(usrp);
+
+    console.log(usrp);
+
+    if (!(usrp.role === "ADMIN" || usrp.role === "OWNER")) {
+        alert("You are not authorized to view this page");
+        $("#info-container").load("resources/home.html");
+        return;
+    }
+
     fetch("https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses")
     .then(resp => {
           if (resp.status >= 400) {
