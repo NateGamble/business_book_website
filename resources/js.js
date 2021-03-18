@@ -28,6 +28,16 @@ $(document).ready(function () {
     $("#info-container").load("resources/businessbyid.html");
   });
 
+  $("#logout").click(function() {
+      if (!localStorage.getItem("usrp")) {
+        alert("You are not logged in");
+      } else {
+        localStorage.removeItem("usrp");
+        alert("You have been logged off");
+        $("#info-container").load("resources/home.html");
+      }
+  });
+
 });
 
 let geocoder;
