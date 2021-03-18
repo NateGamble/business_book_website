@@ -62,6 +62,7 @@ p {
 .js-buttons{
   text-decoration: none;
   cursor: pointer;
+  margin-left: 5%;
 
 }
 #content {
@@ -126,6 +127,8 @@ p {
 	background-color:green;
 	height:15%;
 	width: 100%;
+    color: black;
+    border:solid;
 }
 
 .business-exploration-options{
@@ -148,6 +151,7 @@ p {
 	background-color:#2f2f2f;
 	height:85%;
 	width: 100%;
+    overflow: auto;
 }
 
 /* 
