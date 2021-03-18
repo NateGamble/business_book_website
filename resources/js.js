@@ -423,7 +423,7 @@ function fillHomeInfo(business) {
   saturdayHeader.textContent = "Saturday";
   sundayHeader.textContent = "Sunday";
   
-  hoursHeaderRow.appendChild(beginEndHeader);
+  //hoursHeaderRow.appendChild(beginEndHeader);
   hoursHeaderRow.appendChild(mondayHeader);
   hoursHeaderRow.appendChild(tuesdayHeader);
   hoursHeaderRow.appendChild(wednesdayHeader);
@@ -437,6 +437,17 @@ function fillHomeInfo(business) {
   hoursTable.appendChild(hoursHeaderRow);
   infoDiv.appendChild(hoursTable);
 
+
+  let hoursDataRow = document.createElement("tr");
+
+  let mondayCell = document.createElement("td");
+  let tuesdayCell = document.createElement("td");
+  let wednesdayCell = document.createElement("td");
+  let thursdayCell = document.createElement("td");
+  let fridayCell = document.createElement("td");
+  let saturdayCell = document.createElement("td");
+  let sundayCell = document.createElement("td");
+
   for (let day of hourList) {
     //looking at single post object now
     console.log("displaying day");
@@ -448,8 +459,36 @@ function fillHomeInfo(business) {
     closedTime = closedTime.split('+')[0];
     closedTime = closedTime.substring(0,5);
     console.log(closedDate);
-    console.log(convert(closedTime));
+    console.log('closed time: ' + convert(closedTime));
   
+    var openDateParts = day.open.split('T');
+    var openTime = openDateParts[1];
+    openTime = openTime.split('+')[0];
+    openTime = openTime.substring(0,5);
+    console.log('open time: ' + convert(openTime));
+    console.log('day - ' + day.day);
+    if (day.day == 1) {
+      mondayCell.textContent = 'Opens- ' + convert(openTime) + ' Closes- ' + convert(closedTime);
+    }
+    if (day.day == 2) {
+      tuesdayCell.textContent = 'Opens- ' + convert(openTime) + ' Closes- ' + convert(closedTime);
+    }
+    if (day.day == 3) {
+      wednesdayCell.textContent = 'Opens- ' + convert(openTime) + ' Closes- ' + convert(closedTime);
+    }
+    if (day.day == 4) {
+      thursdayCell.textContent = 'Opens- ' + convert(openTime) + ' Closes- ' + convert(closedTime);
+    }
+    if (day.day == 5) {
+      fridayCell.textContent = 'Opens- ' + convert(openTime) + ' Closes- ' + convert(closedTime);
+    }
+    if (day.day == 6) {
+      saturdayCell.textContent = 'Opens- ' + convert(openTime) + ' Closes- ' + convert(closedTime);
+    }
+    if (day.day == 7) {
+      sundayCell.textContent = 'Opens- ' + convert(openTime) + ' Closes- ' + convert(closedTime);
+    }
+
     // let reviewInfoRow = document.createElement("tr");
     // let ratingCell = document.createElement("td");
     // ratingCell.textContent = review.rating;
@@ -459,8 +498,32 @@ function fillHomeInfo(business) {
     // reviewInfoRow.appendChild(reviewCell);
     // displayTable.appendChild(reviewInfoRow);
   }
+  isEmpty(mondayCell);
+  isEmpty(tuesdayCell);
+  isEmpty(wednesdayCell);
+  isEmpty(thursdayCell);
+  isEmpty(fridayCell);
+  isEmpty(saturdayCell);
+  isEmpty(sundayCell);
+  hoursDataRow.appendChild(mondayCell);
+  hoursDataRow.appendChild(tuesdayCell);
+  hoursDataRow.appendChild(wednesdayCell);
+  hoursDataRow.appendChild(thursdayCell);
+  hoursDataRow.appendChild(fridayCell);
+  hoursDataRow.appendChild(saturdayCell);
+  hoursDataRow.appendChild(sundayCell);
+  hoursTable.appendChild(hoursDataRow);
 
 }
+
+function isEmpty(node) {
+  console.log(node);
+  if (node.innerHTML === "") {
+    return node.textContent = "CLOSED";
+  }
+  
+}
+
 
 function convert(input) {
   return moment(input, 'HH:mm').format('h:mm A');
