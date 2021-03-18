@@ -38,6 +38,17 @@ $(document).ready(function () {
     }
 });
 
+  let favoriteButton = document.querySelector("#favoritesoption");
+  favoriteButton.addEventListener("click", () => {
+    let ppc = localStorage.getItem("usrp");
+
+    if (!ppc) {
+      alert("You cannot access favorites since you are not logged in.");
+      return;
+    }
+
+    fillHomeWithFavorites(JSON.parse(ppc));
+  });
 });
 
 let geocoder;
@@ -355,7 +366,12 @@ function populateMap(businesses) {
           if (status === "OK") {
               //map.setCenter(results[0].geometry.location);
               const infowindow = new google.maps.InfoWindow({
-                  content: businessStatus
+                  content: businessStatus 
+                    + `<div>
+                        <button type="button" id="addFavs" onclick="addFavorite(${business.id})">
+                          Add ${business.businessName} to favorites
+                        </button>
+                       </div>`
               });
               let marker = new google.maps.Marker({
                   title: name,
@@ -367,18 +383,21 @@ function populateMap(businesses) {
               marker.addListener("click", () => {
                   infowindow.open(map, marker);
                   fillHomeInfo(business);
+
                   let homeButton = document.querySelector("#homeoption");
                   homeButton.addEventListener("click", () => {
                     fillHomeInfo(business);
-                  })
+                  });
+
                   let postButton = document.querySelector("#postoption");
                   postButton.addEventListener("click", () => {
                     fillHomeWithPosts(business);
-                  })
+                  });
+
                   let reviewButton = document.querySelector("#reviewsoption");
                   reviewButton.addEventListener("click", () => {
                     fillHomeWithReviews(business);
-                  })
+                  });
               });
           } else {
               alert("Geocode was not successful for the following reason: " + status);
@@ -386,6 +405,36 @@ function populateMap(businesses) {
       });
   }
 }
+
+function addFavorite(businessId) {
+  let principleStr = localStorage.getItem("usrp");
+  let principle;
+
+  if (!principleStr) {
+    alert("You cannot add a favorite since you are not logged in.");
+    return;
+  }
+
+  principle = JSON.parse(principleStr);
+
+  let addFavoritesUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/users/favorites/businessId/" 
+    + businessId + "/user/" + principle.id;
+  console.log(addFavoritesUrl);
+
+  fetch(addFavoritesUrl, {
+    method: "POST"
+  })
+  .then(resp => {
+    if (resp.status >= 400) {
+      alert("Something went wrong while adding your favorite!");
+      throw new Error("Something went wrong while adding your favorite!");
+    }
+
+    alert("Your favorite has been added!");
+    getUserFavorites(principle);
+  })
+  .catch(err => console.log(err));
+};
 
 async function getBusinessInfo() {
   //GET BUSINESSES
@@ -616,6 +665,121 @@ function fillHomeInfo(business) {
 
 }
 
+function fillHomeWithFavorites(principle) {
+  getUserFavorites(principle);
+}
+
+function getUserFavorites(principle) {
+  fetch("https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/users/favorites/user/" + principle.id)
+  .then(resp => {
+    if (resp.status >= 400) {
+      alert("Something went wrong while grabbing your favorites!");
+      return;
+    }
+
+    return resp.json();
+  })
+  .then(resp => {
+    buildFavoritesView(principle, resp);
+  });
+}
+
+function buildFavoritesView(principle, favorites) {
+  let infoDiv = document.querySelector("#info-container");
+  infoDiv.innerHTML = "";
+
+  if (favorites.length === 0) {
+    let h1 = document.createElement("h1");
+    h1.textContent = "You have no favorites; click on the pins on the map to add a business as a favorite.";
+    infoDiv.appendChild(h1);
+  } 
+  else {
+    let table = document.createElement("table");
+    let tableHeaderRow = document.createElement("tr");
+
+    let headerCell1 = document.createElement("th");
+    headerCell1.textContent = "Business Name";
+    let headerCell2 = document.createElement("th");
+    headerCell2.setAttribute("scope", "col");
+    headerCell2.textContent = "Owner Email";
+
+    let headerCell3 = document.createElement("th");
+    headerCell3.setAttribute("scope", "col");
+    headerCell3.textContent = "Location";
+
+    let headerCell4 = document.createElement("th");
+    headerCell4.setAttribute("scope", "col");
+    headerCell4.textContent = "Business Type";
+
+    let headerCell5 = document.createElement("th");
+    headerCell5.setAttribute("scope", "col");
+    headerCell5.textContent = "Delete Business";
+
+    tableHeaderRow.appendChild(headerCell1);
+    tableHeaderRow.appendChild(headerCell2);
+    tableHeaderRow.appendChild(headerCell3);
+    tableHeaderRow.appendChild(headerCell4);
+    tableHeaderRow.appendChild(headerCell5);
+
+    table.appendChild(tableHeaderRow);
+
+    favorites.forEach(biz => {
+        let tableBizRow = document.createElement("tr");
+
+        let businessnameCell = document.createElement("th");
+        businessnameCell.setAttribute("scope", "row");
+        businessnameCell.textContent = biz.businessName;
+
+        let emailCell = document.createElement("td");
+        emailCell.textContent = biz.email;
+
+        let locationCell = document.createElement("td");
+        locationCell.textContent = biz.location;
+
+        let businesstypeCell = document.createElement("td");
+        businesstypeCell.textContent = biz.businessType;
+
+        let deleteCell = document.createElement("td");
+        let deleteBtn = document.createElement("button");
+        deleteBtn.addEventListener("click", () => deleteFavorite(biz.id, principle.id));
+        deleteBtn.textContent = "Delete";
+        deleteCell.appendChild(deleteBtn);
+
+        tableBizRow.appendChild(businessnameCell);
+        tableBizRow.appendChild(emailCell);
+        tableBizRow.appendChild(locationCell);
+        tableBizRow.appendChild(businesstypeCell);
+        tableBizRow.appendChild(deleteCell);
+
+        table.appendChild(tableBizRow);
+    });
+
+    infoDiv.appendChild(table);
+  }
+}
+
+function deleteFavorite(bizId, userId) {
+  let deleteFavoriteUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/users/favorites/businessId/" 
+    + bizId + "/user/" + userId;
+  console.log(deleteFavoriteUrl);
+
+  fetch(deleteFavoriteUrl, {
+    method: "DELETE",
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(resp => {
+    if (resp.status >= 400) {
+      alert("Something went wrong while deleting your favorite!");
+      throw new Error("delete failed");
+    }
+
+    alert("Your favorite has been deleted.");
+    getUserFavorites(JSON.parse(localStorage.getItem("usrp")));
+  })
+}
+
 function isEmpty(node) {
   //console.log(node);
   if (node.innerHTML === "") {
@@ -631,7 +795,8 @@ function convert(input) {
 
 
 async function getBusinesses() {
- // let myUrl = "http://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com//businesses";
+  //GET BUSINESSES
+
   let myUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses";
   await fetch(myUrl)
   .then(response => response.json())

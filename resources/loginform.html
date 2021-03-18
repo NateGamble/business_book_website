@@ -24,6 +24,11 @@
 <script>
 
     function SendData() {
+        if (!!localStorage.getItem("usrp")) {
+            alert("You are already logged in.");
+            return;
+        }
+
         let xhr = new XMLHttpRequest();
         let loginUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/auth/login"; 
 		let result = document.querySelector('#data'); 
@@ -37,12 +42,10 @@
         xhr.onreadystatechange = function () { // Create a state change callback 
             if (xhr.readyState === 4 && xhr.status === 200) { 
                 result.innerHTML = this.responseText; // Print received data from server 
-
-                if (!localStorage.getItem("usrp")) {
-                    localStorage.setItem("usrp", this.responseText);
-                }
-
+                localStorage.setItem("usrp", this.responseText);
                 console.log(localStorage.getItem("usrp"));
+                let ppc = JSON.parse(this.responseText);
+                alert("Welcome, " + ppc.username + "!");
             } 
         }; 
     
