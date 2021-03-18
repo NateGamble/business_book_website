@@ -572,8 +572,8 @@ function convert(input) {
 
 
 async function getBusinesses() {
-  let myUrl = "http://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com//businesses";
- // let myUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses";
+ // let myUrl = "http://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com//businesses";
+  let myUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses";
   await fetch(myUrl)
   .then(response => response.json())
   .then(data => populateMap(data));
