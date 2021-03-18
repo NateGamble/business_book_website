@@ -37,7 +37,12 @@
         xhr.onreadystatechange = function () { // Create a state change callback 
             if (xhr.readyState === 4 && xhr.status === 200) { 
                 result.innerHTML = this.responseText; // Print received data from server 
-                console.log(this);
+
+                if (!localStorage.getItem("usrp")) {
+                    localStorage.setItem("usrp", this.responseText);
+                }
+
+                console.log(localStorage.getItem("usrp"));
             } 
         }; 
     

@@ -1,5 +1,3 @@
-const OWNER_ID = 3; // using Alex's account as a test
-
 function getOwnerBusinesses() {
     fetch("https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses")
     .then(resp => {
@@ -11,7 +9,8 @@ function getOwnerBusinesses() {
           return resp.json();
     })
     .then(businesses => {
-        printBusinesses(businesses/*.filter(business => business.active && business.owner.userId === OWNER_ID)*/);
+        let usrp = JSON.parse(localStorage.getItem("usrp"));
+        printBusinesses(businesses.filter(business => business.active && business.owner.userId === usrp.id));
     });
 }
 
@@ -54,7 +53,10 @@ function printBusinesses(businesses) {
 
     table.appendChild(tableHeaderRow);
 
+    let selectElem = document.createElement("select");
+
     businesses.forEach((biz, idx) => {
+        console.log(biz);
         let tableBizRow = document.createElement("tr");
         let name = "changeBiz" + idx;
 
@@ -106,10 +108,30 @@ function printBusinesses(businesses) {
         tableBizRow.appendChild(updateCell);
         tableBizRow.appendChild(resetCell);
 
+        // add dropdown items
+        let option = document.createElement("option");
+        option.setAttribute("value", biz.id);
+        option.textContent = biz.businessName;
+        selectElem.appendChild(option);
+
         table.appendChild(tableBizRow);
     });
 
-    businessdata.appendChild(table);
+    if (businesses.length > 0) {
+        businessdata.appendChild(table);
+        let bizdd = document.querySelector("#bizDropdownSpan");
+        let label = document.createElement("label");
+
+        label.setAttribute("for", "bizDropdown");
+        label.textContent = "Select Business";
+        selectElem.setAttribute("id", "bizDropdown");
+        bizdd.appendChild(label);
+        bizdd.appendChild(selectElem);
+    } else {
+        let noBusinesses = document.createElement("h1");
+        noBusinesses.textContent = "You have no businesses.";
+        businessdata.appendChild(noBusinesses);
+    }
 }
 
 function saveBusiness() {
@@ -123,20 +145,51 @@ function saveBusiness() {
     newBiz.businessType = inputVals[1];
     newBiz.location = inputVals[2];
     newBiz.email = inputVals[3];
+    newBiz.posts = [];
+    newBiz.active = true;
+    newBiz.hours = [];
+    newBiz.registerDatetime = null;
+    newBiz.id = null;
+    newBiz.reviews = [];
+    newBiz.owner = null;
 
     console.log(newBiz);
+
+    fetch("https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newBiz)
+    })
+    .then(resp => {
+        if (resp.status >= 400) {
+            alert("Something went wrong while adding your business!");
+        } else {
+            alert("Success!");
+        }
+    })
+    .catch(err => {
+        alert("Some error happened!"); 
+        console.log(err);
+    });
 }
 
 function savePost() {
     let newPostBody = document.querySelector('#postbody');
     let newPostType = document.querySelector('#posttype');
+    let bizDropdown = document.querySelector("#bizDropdown");
+    let selectedBiz = bizDropdown.options[bizDropdown.selectedIndex];
+    console.log(selectedBiz);
 
     let newPost = {};
-
     newPost.body = newPostBody.value;
     newPost.postType = newPostType.value;
 
+    let postUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses/id/" + selectedBiz.value + "/posts"; 
+
     console.log(newPost);
+    console.log(postUrl);
 }
 
 function updateBusiness(biz, name) {
