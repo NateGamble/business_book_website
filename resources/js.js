@@ -284,7 +284,7 @@ function populateMap(businesses) {
 }
 
 function callGeocoder(business, businessStatus) {
-  geocoder.geocode({ address: address }, (results, status) => {
+  geocoder.geocode({ address: business.location }, (results, status) => {
     const shape = {// Shapes define the clickable region of the icon. The type defines an HTML
       coords: [1, 1, 1, 20, 20, 20, 20, 1],//[top-left(x,y),top-right(x,y),bottom-right(x,y),bottom-left(x,y)]
       type: "poly"
