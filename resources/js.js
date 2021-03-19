@@ -271,7 +271,10 @@ function populateMap(businesses) {
       }
       
       if (count >= 10) {
-        setTimeout((business, businessStatus) => {callGeocoder(business, businessStatus)}, 1000);
+        setTimeout((business, businessStatus) => {
+          console.log(business);
+          callGeocoder(business, businessStatus);
+        }, 1000);
       } else {
         setTimeout((business, businessStatus) => {callGeocoder(business, businessStatus)}, 0);
       }
