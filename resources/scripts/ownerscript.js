@@ -188,6 +188,14 @@ function saveBusiness() {
             alert("Something went wrong while adding your business!");
         } else {
             alert("Success!");
+            let businessStatus =
+                '<h1 id="firstHeading" class="firstHeading" style="text-align:center">BusinessName</h1>' +
+                '<div id="bodyContent">' +
+                '<p style="text-align:left" class="businessPopup">content</p>' +
+                '</div>';
+            businessStatus = businessStatus.replace("BusinessName", newBiz.businessName);
+            businessStatus = businessStatus.replace("content", "No status to display :)");
+            callGeocoder(newBiz, businessStatus);
         }
     })
     .catch(err => {

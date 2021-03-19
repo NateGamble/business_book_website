@@ -12,23 +12,23 @@ $(document).ready(function () {
     $("#info-container").load("resources/registerform.html");
   });
 
-  $("#userpage").click(function () {
-    $("#info-container").load("resources/users.html");
-  });
+  // $("#userpage").click(function () {
+  //   $("#info-container").load("resources/users.html");
+  // });
 
-  $("#adminpage").click(function() {
+  $("#adminpage").click(function () {
     $("#info-container").load("resources/adminpage.html");
   });
 
-  $("#ownerpage").click(function() {
+  $("#ownerpage").click(function () {
     $("#info-container").load("resources/ownerpage.html");
   });
 
-  $("#businessbyidpage").click(function () {
-    $("#info-container").load("resources/businessbyid.html");
-  });
+  // $("#businessbyidpage").click(function () {
+  //   $("#info-container").load("resources/businessbyid.html");
+  // });
 
-  $("#logout").click(function() {
+  $("#logout").click(function () {
     if (!localStorage.getItem("usrp")) {
       alert("You are not logged in");
     } else {
@@ -36,7 +36,7 @@ $(document).ready(function () {
       alert("You have been logged off");
       $("#info-container").load("resources/home.html");
     }
-});
+  });
 
   let favoriteButton = document.querySelector("#favoritesoption");
   favoriteButton.addEventListener("click", () => {
@@ -71,7 +71,7 @@ function initMap() {
   geocoder = new google.maps.Geocoder();
 
   //create map control buttons
-  createButtons(); 
+  createButtons();
 
   //Pulls businesses and then populates the map with them
   getBusinesses();
@@ -79,7 +79,7 @@ function initMap() {
   //populateMap();
 
   // centers map on the users location
-  centerMap(); 
+  centerMap();
 }
 
 
@@ -144,32 +144,32 @@ function moveMarker(map, marker) {
 
 };
 
-function centerMap(){
-  
-const personimage = {
-  url: "resources/images/personicon.png",
-  size: new google.maps.Size(30, 50),// This marker is 20 pixels wide by 20 pixels high.
-  origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
-  anchor: new google.maps.Point(0, 50)// The anchor for this image is the base.
-};
+function centerMap() {
 
-const personshape = {// Shapes define the clickable region of the icon. The type defines an HTML
-  coords: [1, 1, 1, 30, 30, 50, 50, 1],//[top-left(x,y),top-right(x,y),bottom-right(x,y),bottom-left(x,y)]
-  type: "poly"
-};
-	//let iw_currentLocation = new google.maps.InfoWindow();
-	// Try HTML5 geolocation.
-	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(
-			(position) => {
-				const pos = {
-					lat: position.coords.latitude,
-					lng: position.coords.longitude,
-				};
-				//iw_currentLocation.setPosition(pos);
-				//iw_currentLocation.setContent("You Are Here.");
-				//iw_currentLocation.open(map);
-				map.setCenter(pos);
+  const personimage = {
+    url: "resources/images/personicon.png",
+    size: new google.maps.Size(30, 50),// This marker is 20 pixels wide by 20 pixels high.
+    origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
+    anchor: new google.maps.Point(0, 50)// The anchor for this image is the base.
+  };
+
+  const personshape = {// Shapes define the clickable region of the icon. The type defines an HTML
+    coords: [1, 1, 1, 30, 30, 50, 50, 1],//[top-left(x,y),top-right(x,y),bottom-right(x,y),bottom-left(x,y)]
+    type: "poly"
+  };
+  //let iw_currentLocation = new google.maps.InfoWindow();
+  // Try HTML5 geolocation.
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        //iw_currentLocation.setPosition(pos);
+        //iw_currentLocation.setContent("You Are Here.");
+        //iw_currentLocation.open(map);
+        map.setCenter(pos);
         new google.maps.Marker({
           position: pos,
           map,
@@ -178,20 +178,20 @@ const personshape = {// Shapes define the clickable region of the icon. The type
           title: "You Are Here :)",
           zIndex: 1
         });
-        },
-        () => {
-          handleLocationError(true, iw_currentLocation, map.getCenter());
-        }
-      );
-    } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, iw_currentLocation, map.getCenter());
-    }
+      },
+      () => {
+        handleLocationError(true, iw_currentLocation, map.getCenter());
+      }
+    );
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, iw_currentLocation, map.getCenter());
+  }
 }
 
 
-function getImage(businessType){
-  switch(businessType) {
+function getImage(businessType) {
+  switch (businessType) {
     case "library":
       image = {
         url: "resources/images/bookIcon.png",
@@ -201,7 +201,6 @@ function getImage(businessType){
       };
       return image;
     case "restaurant":
-      console.log("in restraunt")
       image = {
         url: "resources/images/burgerIcon.png",
         size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
@@ -209,36 +208,28 @@ function getImage(businessType){
         anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
       };
       return image;
-      case "bar":
-        console.log("in bar")
-        image = {
-          url: "resources/images/beerIcon.png",
-          size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
-          origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
-          anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
-        };
-        return image;
-      case "grocery":
-        image = {
-          url: "resources/images/cartIcon.png",
-          size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
-          origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
-          anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
-        };
-        return image;
+    case "bar":
+      image = {
+        url: "resources/images/beerIcon.png",
+        size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
+        origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
+        anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
+      };
+      return image;
+    case "grocery":
+      image = {
+        url: "resources/images/cartIcon2.png",
+        size: new google.maps.Size(30, 30),// This marker is 20 pixels wide by 20 pixels high.
+        origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
+        anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
+      };
+      return image;
     default:
-      console.log("default case" + businessType)
-      // image = {
-      //   url: "resources/images/shirtIconEx.png",
-      //   size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
-      //   origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
-      //   anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
-      // };
       break;
-      
-  } 
 
-  
+  }
+
+
 
 
 
@@ -248,44 +239,44 @@ function getImage(businessType){
 
 function populateMap(businesses) {
   var count = 0;
-  
+
   //need to get our business listings
   for (let business of businesses) {
-      //console.log(business.location);
-      // let address = business.location;
-      let name = business.businessName;
-      //let address = "1201 Broadway Ave S Ste 100, Rochester, MN 55904";
-      //let name = "chickenfilet";
-      let businessStatus =
+    //console.log(business.location);
+    // let address = business.location;
+    let name = business.businessName;
+    //let address = "1201 Broadway Ave S Ste 100, Rochester, MN 55904";
+    //let name = "chickenfilet";
+    let businessStatus =
       '<h1 id="firstHeading" class="firstHeading" style="text-align:center">BusinessName</h1>' +
       '<div id="bodyContent">' +
       '<p style="text-align:left" class="businessPopup">content</p>' +
       '</div>';
-      businessStatus = businessStatus.replace("BusinessName", name);
-      console.log(business.businessType);
-      //console.log(business);
-      if (business.posts.length === 0) {
-        businessStatus = businessStatus.replace("content", "No status to display :)");
-      } else {
-        businessStatus = businessStatus.replace("content", business.posts[business.posts.length - 1].body);
-      }
-      
-      if (count >= 10) {
-        setTimeout(() => {
-          console.log(business);
-          callGeocoder(business, businessStatus);
-        }, 10000);
-      } else {
-        setTimeout(() => {
-          console.log(business);
-          callGeocoder(business, businessStatus);
-        }, 0);
-      }
-      count++;
-      
-      
+    businessStatus = businessStatus.replace("BusinessName", name);
+    console.log(business.businessType);
+    //console.log(business);
+    if (business.posts.length === 0) {
+      businessStatus = businessStatus.replace("content", "No status to display :)");
+    } else {
+      businessStatus = businessStatus.replace("content", business.posts[business.posts.length - 1].body);
+    }
 
-      
+    if (count >= 10) {
+      setTimeout(() => {
+        console.log(business);
+        callGeocoder(business, businessStatus);
+      }, 10000);
+    } else {
+      setTimeout(() => {
+        console.log(business);
+        callGeocoder(business, businessStatus);
+      }, 0);
+    }
+    count++;
+
+
+
+
   }
 }
 
@@ -297,49 +288,49 @@ function callGeocoder(business, businessStatus) {
     };
     let name = business.businessName;
     if (status === "OK") {
-        //map.setCenter(results[0].geometry.location);
-        const infowindow = new google.maps.InfoWindow({
-            content: businessStatus 
-              + `<div>
+      //map.setCenter(results[0].geometry.location);
+      const infowindow = new google.maps.InfoWindow({
+        content: businessStatus
+          + `<div>
                   <button type="button" id="addFavs" onclick="addFavorite(${business.id})">
                     Add ${business.businessName} to favorites
                   </button>
                  </div>`
-        });
-        let marker = new google.maps.Marker({
-            title: name,
-            map: map,
-            icon:getImage(business.businessType),
-            shape:shape,
-            position: results[0].geometry.location
-        });
-        marker.addListener("click", () => {
-            infowindow.open(map, marker);
-            fillHomeInfo(business);
+      });
+      let marker = new google.maps.Marker({
+        title: name,
+        map: map,
+        icon: getImage(business.businessType),
+        shape: shape,
+        position: results[0].geometry.location
+      });
+      marker.addListener("click", () => {
+        infowindow.open(map, marker);
+        fillHomeInfo(business);
 
-            let homeButton = document.querySelector("#homeoption");
-            homeButton.addEventListener("click", () => {
-              fillHomeInfo(business);
-            });
-
-            let postButton = document.querySelector("#postoption");
-            postButton.addEventListener("click", () => {
-              fillHomeWithPosts(business);
-            });
-
-            let reviewButton = document.querySelector("#reviewsoption");
-            reviewButton.addEventListener("click", () => {
-              fillHomeWithReviews(business);
-            });
+        let homeButton = document.querySelector("#homeoption");
+        homeButton.addEventListener("click", () => {
+          fillHomeInfo(business);
         });
+
+        let postButton = document.querySelector("#postoption");
+        postButton.addEventListener("click", () => {
+          fillHomeWithPosts(business);
+        });
+
+        let reviewButton = document.querySelector("#reviewsoption");
+        reviewButton.addEventListener("click", () => {
+          fillHomeWithReviews(business);
+        });
+      });
     } else {
-        // Request not OK, because over query limit
-        if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
-            // setTimeout(50)
-            console.log("We hit the query limit!");
-        }   
+      // Request not OK, because over query limit
+      if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+        // setTimeout(50)
+        console.log("We hit the query limit!");
+      }
     }
-});
+  });
 }
 
 function addFavorite(businessId) {
@@ -353,31 +344,31 @@ function addFavorite(businessId) {
 
   principle = JSON.parse(principleStr);
 
-  let addFavoritesUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/users/favorites/businessId/" 
+  let addFavoritesUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/users/favorites/businessId/"
     + businessId + "/user/" + principle.id;
   console.log(addFavoritesUrl);
 
   fetch(addFavoritesUrl, {
     method: "POST"
   })
-  .then(resp => {
-    if (resp.status >= 400) {
-      alert("Something went wrong while adding your favorite!");
-      throw new Error("Something went wrong while adding your favorite!");
-    }
+    .then(resp => {
+      if (resp.status >= 400) {
+        alert("Something went wrong while adding your favorite!");
+        throw new Error("Something went wrong while adding your favorite!");
+      }
 
-    alert("Your favorite has been added!");
-    getUserFavorites(principle);
-  })
-  .catch(err => console.log(err));
+      alert("Your favorite has been added!");
+      getUserFavorites(principle);
+    })
+    .catch(err => console.log(err));
 };
 
 async function getBusinessInfo() {
   //GET BUSINESSES
   let myUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses";
   await fetch(myUrl)
-  .then(response => response.json())
-  .then(data => populateMap(data));
+    .then(response => response.json())
+    .then(data => populateMap(data));
 }
 
 function fillHomeWithPosts(business) {
@@ -550,14 +541,14 @@ function fillHomeInfo(business) {
     var closedDateParts = day.closed.split('T');
     var closedTime = closedDateParts[1];
     closedTime = closedTime.split('+')[0];
-    closedTime = closedTime.substring(0,5);
+    closedTime = closedTime.substring(0, 5);
     // console.log(closedDate);
     // console.log('closed time: ' + convert(closedTime));
 
     var openDateParts = day.open.split('T');
     var openTime = openDateParts[1];
     openTime = openTime.split('+')[0];
-    openTime = openTime.substring(0,5);
+    openTime = openTime.substring(0, 5);
     // console.log('open time: ' + convert(openTime));
     // console.log('day - ' + day.day);
     if (day.day == 1) {
@@ -607,17 +598,17 @@ function fillHomeWithFavorites(principle) {
 
 function getUserFavorites(principle) {
   fetch("https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/users/favorites/user/" + principle.id)
-  .then(resp => {
-    if (resp.status >= 400) {
-      alert("Something went wrong while grabbing your favorites!");
-      return;
-    }
+    .then(resp => {
+      if (resp.status >= 400) {
+        alert("Something went wrong while grabbing your favorites!");
+        return;
+      }
 
-    return resp.json();
-  })
-  .then(resp => {
-    buildFavoritesView(principle, resp);
-  });
+      return resp.json();
+    })
+    .then(resp => {
+      buildFavoritesView(principle, resp);
+    });
 }
 
 function buildFavoritesView(principle, favorites) {
@@ -628,7 +619,7 @@ function buildFavoritesView(principle, favorites) {
     let h1 = document.createElement("h1");
     h1.textContent = "You have no favorites; click on the pins on the map to add a business as a favorite.";
     infoDiv.appendChild(h1);
-  } 
+  }
   else {
     let table = document.createElement("table");
     let tableHeaderRow = document.createElement("tr");
@@ -660,34 +651,34 @@ function buildFavoritesView(principle, favorites) {
     table.appendChild(tableHeaderRow);
 
     favorites.forEach(biz => {
-        let tableBizRow = document.createElement("tr");
+      let tableBizRow = document.createElement("tr");
 
-        let businessnameCell = document.createElement("th");
-        businessnameCell.setAttribute("scope", "row");
-        businessnameCell.textContent = biz.businessName;
+      let businessnameCell = document.createElement("th");
+      businessnameCell.setAttribute("scope", "row");
+      businessnameCell.textContent = biz.businessName;
 
-        let emailCell = document.createElement("td");
-        emailCell.textContent = biz.email;
+      let emailCell = document.createElement("td");
+      emailCell.textContent = biz.email;
 
-        let locationCell = document.createElement("td");
-        locationCell.textContent = biz.location;
+      let locationCell = document.createElement("td");
+      locationCell.textContent = biz.location;
 
-        let businesstypeCell = document.createElement("td");
-        businesstypeCell.textContent = biz.businessType;
+      let businesstypeCell = document.createElement("td");
+      businesstypeCell.textContent = biz.businessType;
 
-        let deleteCell = document.createElement("td");
-        let deleteBtn = document.createElement("button");
-        deleteBtn.addEventListener("click", () => deleteFavorite(biz.id, principle.id));
-        deleteBtn.textContent = "Delete";
-        deleteCell.appendChild(deleteBtn);
+      let deleteCell = document.createElement("td");
+      let deleteBtn = document.createElement("button");
+      deleteBtn.addEventListener("click", () => deleteFavorite(biz.id, principle.id));
+      deleteBtn.textContent = "Delete";
+      deleteCell.appendChild(deleteBtn);
 
-        tableBizRow.appendChild(businessnameCell);
-        tableBizRow.appendChild(emailCell);
-        tableBizRow.appendChild(locationCell);
-        tableBizRow.appendChild(businesstypeCell);
-        tableBizRow.appendChild(deleteCell);
+      tableBizRow.appendChild(businessnameCell);
+      tableBizRow.appendChild(emailCell);
+      tableBizRow.appendChild(locationCell);
+      tableBizRow.appendChild(businesstypeCell);
+      tableBizRow.appendChild(deleteCell);
 
-        table.appendChild(tableBizRow);
+      table.appendChild(tableBizRow);
     });
 
     infoDiv.appendChild(table);
@@ -695,7 +686,7 @@ function buildFavoritesView(principle, favorites) {
 }
 
 function deleteFavorite(bizId, userId) {
-  let deleteFavoriteUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/users/favorites/businessId/" 
+  let deleteFavoriteUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/users/favorites/businessId/"
     + bizId + "/user/" + userId;
   console.log(deleteFavoriteUrl);
 
@@ -705,15 +696,15 @@ function deleteFavorite(bizId, userId) {
       'Content-Type': 'application/json'
     }
   })
-  .then(resp => {
-    if (resp.status >= 400) {
-      alert("Something went wrong while deleting your favorite!");
-      throw new Error("delete failed");
-    }
+    .then(resp => {
+      if (resp.status >= 400) {
+        alert("Something went wrong while deleting your favorite!");
+        throw new Error("delete failed");
+      }
 
-    alert("Your favorite has been deleted.");
-    getUserFavorites(JSON.parse(localStorage.getItem("usrp")));
-  })
+      alert("Your favorite has been deleted.");
+      getUserFavorites(JSON.parse(localStorage.getItem("usrp")));
+    })
 }
 
 function isEmpty(node) {
@@ -735,8 +726,8 @@ async function getBusinesses() {
 
   let myUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses";
   await fetch(myUrl)
-  .then(response => response.json())
-  .then(data => populateMap(data));
+    .then(response => response.json())
+    .then(data => populateMap(data));
   // //GET BUSINESSES
   // let xhr = new XMLHttpRequest(); // Creating a XHR object
   // let url = "http://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com//businesses";

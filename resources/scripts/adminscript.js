@@ -285,14 +285,14 @@ function showReviewsByBusiness(biz) {
 function deleteBusiness(bizId) {
     let deleteUrl = "https://testingstuff-env.eba-jjai2atc.us-east-1.elasticbeanstalk.com/businesses/id/" + bizId;
     console.log(deleteUrl);
-    /*fetch(deleteUrl, {
+    fetch(deleteUrl, {
         method: 'DELETE'
     })
     .then(res => {
         if (res.status < 400) {
             getAllBusinesses();
         }
-    });*/
+    });
 }
 
 function deleteUser(userId) {
