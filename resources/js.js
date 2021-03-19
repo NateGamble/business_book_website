@@ -132,90 +132,6 @@ function createButtonCurrentLocation() {
   });
 }
 
-
-// // function addInfo() {
-// //   const myLatlng = { lat: -25.363, lng: 131.044 };
-// //   let infoWindow = new google.maps.InfoWindow({
-// //     content: "Click the map to get Lat/Lng!",
-// //     position: myLatlng,
-// //   });
-// //   //infoWindow.open(map);
-// //   // Configure the click listener.
-// //   map.addListener("click", (mapsMouseEvent) => {
-
-// //     infoWindow.close();// Close the current InfoWindow.
-// //     infoWindow = new google.maps.InfoWindow({// Create a new InfoWindow.
-// //       position: mapsMouseEvent.latLng,
-// //     });
-// //     infoWindow.setContent(
-// //       JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
-// //     );
-// //     infoWindow.open(map);
-// //   });
-
-// // }
-
-// function addMarker() {
-
-
-
-//   const image10 = {
-//     url: "resources/images/burgerIcon.png",
-//     size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
-//     origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
-//     anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
-//   };
-//   const image11 = {
-//     url: "resources/images/burgerIconEx.png",
-//     size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
-//     origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
-//     anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
-//   };
-
-//   const image20 = {
-
-//     url: "resources/images/shirtIcon.png",
-//     size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
-//     origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
-//     anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
-//   };
-//   const image21 = {
-//     url: "resources/images/shirtIcon.png",
-//     size: new google.maps.Size(20, 20),// This marker is 20 pixels wide by 20 pixels high.
-//     origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
-//     anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
-//   };
-
-
-
-
-//   const business = [
-//     ["Willie's House of Debauchery", 43.455678, -88.84455373, 1, image10],
-//     ["Piggly Wiggly", 43.4542445738, -88.83662373, 1, image10],
-//     ["Drowned Rat: Pest Control", 43.459878, -88.8485085373, 1, image10],
-//     ["Daily Thrift", 43.4578, -88.83, 2, image10],
-//     ["Berries Baked Goods", 43.458, -88.8373, 1, image10]
-//   ];
-
-
-
-//   const shape = {// Shapes define the clickable region of the icon. The type defines an HTML
-//     coords: [1, 1, 1, 20, 20, 20, 20, 1],//[top-left(x,y),top-right(x,y),bottom-right(x,y),bottom-left(x,y)]
-//     type: "poly"
-//   };
-
-//   for (let i = 0; i < business.length; i++) {
-//     new google.maps.Marker({
-//       position: { lat: business[i][1], lng: business[i][2] },
-//       map,
-//       icon: business[i][4],
-//       shape: shape,
-//       title: business[i][0],
-//       zIndex: business[i][3]
-//     });
-//   }
-// }
-
 function moveMarker(map, marker) {
 
   //delayed so you can see it move
@@ -336,7 +252,7 @@ function populateMap(businesses) {
   //need to get our business listings
   for (let business of businesses) {
       //console.log(business.location);
-      let address = business.location;
+      // let address = business.location;
       let name = business.businessName;
       //let address = "1201 Broadway Ave S Ste 100, Rochester, MN 55904";
       //let name = "chickenfilet";
@@ -353,64 +269,70 @@ function populateMap(businesses) {
       } else {
         businessStatus = businessStatus.replace("content", business.posts[business.posts.length - 1].body);
       }
-      const shape = {// Shapes define the clickable region of the icon. The type defines an HTML
-        coords: [1, 1, 1, 20, 20, 20, 20, 1],//[top-left(x,y),top-right(x,y),bottom-right(x,y),bottom-left(x,y)]
-        type: "poly"
-      };
-    
-    
-      geocoder.geocode({ address: address }, (results, status) => {
-          
-          if (status === "OK") {
-              //map.setCenter(results[0].geometry.location);
-              const infowindow = new google.maps.InfoWindow({
-                  content: businessStatus 
-                    + `<div>
-                        <button type="button" id="addFavs" onclick="addFavorite(${business.id})">
-                          Add ${business.businessName} to favorites
-                        </button>
-                       </div>`
-              });
-              let marker = new google.maps.Marker({
-                  title: name,
-                  map: map,
-                  icon:getImage(business.businessType),
-                  shape:shape,
-                  position: results[0].geometry.location
-              });
-              marker.addListener("click", () => {
-                  infowindow.open(map, marker);
-                  fillHomeInfo(business);
+      
+      if (count >= 10) {
+        setTimeout((business, businessStatus) => {callGeocoder(business, businessStatus)}, 1000);
+      } else {
+        setTimeout((business, businessStatus) => {callGeocoder(business, businessStatus)}, 0);
+      }
+      count++;
+      
+      
 
-                  let homeButton = document.querySelector("#homeoption");
-                  homeButton.addEventListener("click", () => {
-                    fillHomeInfo(business);
-                  });
-
-                  let postButton = document.querySelector("#postoption");
-                  postButton.addEventListener("click", () => {
-                    fillHomeWithPosts(business);
-                  });
-
-                  let reviewButton = document.querySelector("#reviewsoption");
-                  reviewButton.addEventListener("click", () => {
-                    fillHomeWithReviews(business);
-                  });
-              });
-              count++;
-              if (count >= 10) {
-                console.log("delaying");
-                setTimeout(1000);
-                count = 0;
-              }
-          } else {
-              if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
-                  setTimeout(50)
-              }   
-              //alert("Geocode was not successful for the following reason: " + status);
-          }
-      });
+      
   }
+}
+
+function callGeocoder(business, businessStatus) {
+  geocoder.geocode({ address: address }, (results, status) => {
+    const shape = {// Shapes define the clickable region of the icon. The type defines an HTML
+      coords: [1, 1, 1, 20, 20, 20, 20, 1],//[top-left(x,y),top-right(x,y),bottom-right(x,y),bottom-left(x,y)]
+      type: "poly"
+    };
+    let name = business.businessName;
+    if (status === "OK") {
+        //map.setCenter(results[0].geometry.location);
+        const infowindow = new google.maps.InfoWindow({
+            content: businessStatus 
+              + `<div>
+                  <button type="button" id="addFavs" onclick="addFavorite(${business.id})">
+                    Add ${business.businessName} to favorites
+                  </button>
+                 </div>`
+        });
+        let marker = new google.maps.Marker({
+            title: name,
+            map: map,
+            icon:getImage(business.businessType),
+            shape:shape,
+            position: results[0].geometry.location
+        });
+        marker.addListener("click", () => {
+            infowindow.open(map, marker);
+            fillHomeInfo(business);
+
+            let homeButton = document.querySelector("#homeoption");
+            homeButton.addEventListener("click", () => {
+              fillHomeInfo(business);
+            });
+
+            let postButton = document.querySelector("#postoption");
+            postButton.addEventListener("click", () => {
+              fillHomeWithPosts(business);
+            });
+
+            let reviewButton = document.querySelector("#reviewsoption");
+            reviewButton.addEventListener("click", () => {
+              fillHomeWithReviews(business);
+            });
+        });
+    } else {
+        // Request not OK, because over query limit
+        if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+            // setTimeout(50)
+        }   
+    }
+});
 }
 
 function addFavorite(businessId) {
