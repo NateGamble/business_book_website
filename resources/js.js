@@ -274,9 +274,12 @@ function populateMap(businesses) {
         setTimeout(() => {
           console.log(business);
           callGeocoder(business, businessStatus);
-        }, 1000);
+        }, 10000);
       } else {
-        setTimeout(() => {callGeocoder(business, businessStatus)}, 0);
+        setTimeout(() => {
+          console.log(business);
+          callGeocoder(business, businessStatus);
+        }, 0);
       }
       count++;
       
@@ -333,6 +336,7 @@ function callGeocoder(business, businessStatus) {
         // Request not OK, because over query limit
         if (status == google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
             // setTimeout(50)
+            console.log("We hit the query limit!");
         }   
     }
 });
