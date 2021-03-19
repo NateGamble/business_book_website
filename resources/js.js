@@ -276,7 +276,7 @@ function populateMap(businesses) {
       }, 10000);
     } else {
       setTimeout(() => {
-        console.log(business);
+        //console.log(business);
         callGeocoder(business, businessStatus);
       }, 0);
     }
