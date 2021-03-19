@@ -10,7 +10,7 @@ html, body {
     width: 100%;
 } */
 #body {
-    height: 120%;
+    height: 100%;
 }
 #content, #D {
     position: absolute;
@@ -34,7 +34,7 @@ html, body {
     background-color: #999999;
     /* z-index:100; */
     width: 20%;
-    height: 108%
+    height: 90%
 }
 a {
 	 text-decoration: none;
