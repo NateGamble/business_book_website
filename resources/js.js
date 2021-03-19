@@ -224,6 +224,14 @@ function getImage(businessType) {
         anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
       };
       return image;
+    case "new":
+      image = {
+        url: "resources/images/exclamation.png",
+        size: new google.maps.Size(35, 35),// This marker is 20 pixels wide by 20 pixels high.
+        origin: new google.maps.Point(0, 0),// The origin for this image is (0, 0).-- top-left   
+        anchor: new google.maps.Point(0, 20)// The anchor for this image is the base.
+      };
+      return image;
     default:
       break;
 
@@ -253,7 +261,7 @@ function populateMap(businesses) {
       '<p style="text-align:left" class="businessPopup">content</p>' +
       '</div>';
     businessStatus = businessStatus.replace("BusinessName", name);
-    console.log(business.businessType);
+    //console.log(business.businessType);
     //console.log(business);
     if (business.posts.length === 0) {
       businessStatus = businessStatus.replace("content", "No status to display :)");
@@ -297,10 +305,26 @@ function callGeocoder(business, businessStatus) {
                   </button>
                  </div>`
       });
+      //if check to do a call to specific type based on time**
+      var imageType = business.businessType;
+      if (business.posts.length != 0) {
+        var bizPostDateTimeParts = business.posts[business.posts.length - 1].createdTime.split('T');
+        var bizPostDateParts = bizPostDateTimeParts[0].split('-');
+        var postYear = bizPostDateParts[0];
+        var postMonth = bizPostDateParts[1];
+        var postDay = bizPostDateParts[2];
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+        if (postYear == yyyy && postMonth == mm && postDay == dd) {
+            imageType = "new";
+        }
+      } 
       let marker = new google.maps.Marker({
         title: name,
         map: map,
-        icon: getImage(business.businessType),
+        icon: getImage(imageType),
         shape: shape,
         position: results[0].geometry.location
       });
@@ -402,7 +426,19 @@ function fillHomeWithPosts(business) {
     let postCell = document.createElement("td");
     postCell.textContent = post.body;
     let timeCell = document.createElement("td");
-    timeCell.textContent = post.createdTime;
+
+    if (post.createdTime) {
+      var postDateParts = post.createdTime.split('T');
+      var postDate = postDateParts[0];
+      var postTime = postDateParts[1];
+      postTime = postTime.split('+')[0];
+      postTime = postTime.substring(0, 5);
+  
+      timeCell.textContent = postDate + ' ' + convert(postTime);
+    } else {
+      //timeCell.textContent = postDate + ' ' + convert(postTime);
+    }
+
     postInfoRow.appendChild(typeCell);
     postInfoRow.appendChild(postCell);
     postInfoRow.appendChild(timeCell);
